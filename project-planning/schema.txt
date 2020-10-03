@@ -1,0 +1,45 @@
+# post the text below on the left hand section of site 
+# https://app.quickdatabasediagrams.com/#/
+
+
+User
+-
+ID PK int
+username UNIQUE string
+password hash
+first_name string
+last_name string
+
+Subject
+-
+ID PK int
+name UNIQUE string
+
+Question
+-
+ID PK int
+title string
+content string
+subjectID int FK >- Subject.ID
+authorID int FK >- User.ID
+date string
+answered boolean
+
+QuestionTag
+-
+ID PK int
+questionID int FK >- Question.ID
+tagID int FK >- Tag.ID
+
+Tag
+-
+ID PK int
+name UNIQUE string
+
+Answer
+-
+ID PK int
+authorID int FK >- User.ID
+questionID int FK >- Question.ID
+date string
+upvotes int
