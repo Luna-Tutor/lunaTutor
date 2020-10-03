@@ -5,14 +5,17 @@ body {
   margin: 0;
 }
 
-h1 {
-  color: 'green';
+.homepage {
+  background-image     : url('./images/background.jpg');
+  height               : 100vh;
+  background-size      : cover;
+  background-position  : center;
+  background-repeat    : no-repeat;
+  background-attachment: fixed;
 }
 
-.homepage {
-  background-image: url('./images/background.jpg');
-  height: 100vh;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+.question-board {
+  background: rgba(255, 255, 255, 0.849);
+  border-radius: 15px;
+  height: 100%;
 }
