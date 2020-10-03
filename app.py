@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, flash, jsonify
-from models import connect_db, db, User, Question, Answer, Subject, 
-
+from models import connect_db, db, User, Question, Answer, Subject
+from forms import LoginForm, SignUpForm, QuestionForm, AnswerForm
 
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
@@ -18,11 +18,17 @@ def homepage():
 
 
 # login route
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    """ show login page if GET / handle login if POST """
+    form = LoginForm()
+
+    return render_template('login.html', form=form)
 
 
 # sign up route
 
-
+            
 
 # Question and answer routes 
 # What do the routes look like if taking an AJAX approach?
