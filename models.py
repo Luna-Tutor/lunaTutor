@@ -95,7 +95,7 @@ class Subject(db.Model):
     id = db.Column(db.Integer,
                    primary_key=True,
                    autoincrement=True)
-    name = db.Column(db.string(20),
+    name = db.Column(db.String(20),
                      nullable=False,
                      unique=True)
 
