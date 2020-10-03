@@ -47,7 +47,7 @@ class QuestionForm(FlaskForm):
         DataRequired()
         ])
     hashtag = StringField('Hashtag')
-    details = StringField('Details', validators=[
+    content = StringField('Content', validators=[
         DataRequired(),
         Length(min=1, message=('Please fill in the details.'))
         ])
