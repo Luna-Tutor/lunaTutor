@@ -1,5 +1,5 @@
-import wtforms
-from wtforms import StringField, TextField, SubmitField, SelectField
+from flask_wtf import FlaskForm
+from wtforms import StringField, TextAreaField, PasswordField, SelectField
 from wtforms.validators import DataRequired, Email, Length
 
 SUBJECT_LIST = ['Biology', 'Physics', 'Chemistry']
@@ -15,7 +15,7 @@ class SignUpForm(FlaskForm):
         Email(message=('Not a valid email address.')),
         DataRequired()
         ])
-    password = StringField('Password', validators=[
+    password = PasswordField('Password', validators=[
         DataRequired(), 
         Length(min=6, message=('Password needs to be 6 or more characters!'))
         ])
@@ -32,7 +32,7 @@ class LoginForm(FlaskForm):
     username = StringField('Name', validators=[
         DataRequired()
         ])
-    password = StringField('Password', validators=[
+    password = PasswordField('Password', validators=[
         DataRequired(), 
         Length(min=6, message=('Password needs to be 6 or more characters!'))
         ])
@@ -47,6 +47,7 @@ class QuestionForm(FlaskForm):
     title = StringField('Title', validators=[
         DataRequired()
         ])
+    hashtag = StringField('Hashtag')
     details = StringField('Details', validators=[
         DataRequired(),
         Length(min=1, message=('Please fill in the details.'))
@@ -55,6 +56,6 @@ class QuestionForm(FlaskForm):
 class AnswerForm(FlaskForm):
     """Answer"""
 
-    answer = StringField('Answer', validators=[
+    answer = TextField('Answer', validators=[
       DataRequired()
     ])
