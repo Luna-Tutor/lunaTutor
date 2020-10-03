@@ -1,0 +1,18 @@
+html,
+body {
+  scroll-behavior: smooth;
+  height: 100%;
+  margin: 0;
+}
+
+h1 {
+  color: 'green';
+}
+
+.homepage {
+  background-image: url('./images/background.jpg');
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
