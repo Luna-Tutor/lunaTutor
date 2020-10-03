@@ -85,6 +85,7 @@ class Question(db.Model):
     answered = db.Column(db.Boolean,
                    nullable=False,
                    default=True)
+
     
 class Subject(db.Model):
     """Subject Model"""
@@ -115,6 +116,8 @@ class Answer(db.Model):
                    nullable=False,
                    default=datetime.utcnow())
     upvotes = db.Column(db.Integer)
+    
+    question = db.relationship("Question", backref="answers")
 
 
 
