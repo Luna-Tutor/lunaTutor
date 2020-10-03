@@ -1,10 +1,10 @@
 from flask import Flask, render_template, request, redirect, session, flash, jsonify
-from models import connect_db, db, User, Question, Answer, Subject
-from forms import LoginForm, SignUpForm, QuestionForm, AnswerForm
+#from models import connect_db, db, User, Question, Answer, Subject
+from forms import LoginForm, SignUpForm, AnswerForm
 
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
-
+app.secret_key = "abc123"
 
 
 # landing page
@@ -23,7 +23,7 @@ def login():
     """ show login page if GET / handle login if POST """
     form = LoginForm()
 
-    return render_template('login.html', form=form)
+    return render_template('userLoginSignupForm/login.html', form=form)
 
 
 # sign up route
