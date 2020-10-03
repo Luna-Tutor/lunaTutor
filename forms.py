@@ -40,9 +40,8 @@ class LoginForm(FlaskForm):
 class QuestionForm(FlaskForm):
     """Ask Question"""
 
-    subject = SelectField('Subject', validators=[
+    subject = SelectField('Subject', choices=SUBJECT_LIST, validators=[
         DataRequired(),
-        choices=SUBJECT_LIST
         ])
     title = StringField('Title', validators=[
         DataRequired()
@@ -56,6 +55,6 @@ class QuestionForm(FlaskForm):
 class AnswerForm(FlaskForm):
     """Answer"""
 
-    answer = TextField('Answer', validators=[
+    answer = TextAreaField('Answer', validators=[
       DataRequired()
     ])

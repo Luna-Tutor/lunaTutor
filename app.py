@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, flash, jsonify
 from models import connect_db, db, User, Question, Answer, Subject
-from forms import LoginForm, SignUpForm, QuestionForm, AnswerForm
+from forms import LoginForm, SignUpForm, AnswerForm, QuestionForm
 
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
