@@ -27,8 +27,25 @@ def login():
 
 
 # sign up route
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    """ show signup page with form if GET / handle signup if POST """
+    form = SignUpForm()
 
-            
+    return render_template('userLoginSignupForm/signup.html', form=form)
+
+
+# feed route
+@app.route('/q', methods=['GET'])
+def show_question_feed():
+    """ show the question feed across all subjects """
+    questions = Question.query.all()
+
+    return render_template('feed.html', questions=questions)
+
+
+
+
 
 # Question and answer routes 
 # What do the routes look like if taking an AJAX approach?
