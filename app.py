@@ -4,7 +4,7 @@ from forms import LoginForm, SignUpForm, AnswerForm, QuestionForm
 
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
-
+app.secret_key = "abc123"
 
 
 # landing page
@@ -23,7 +23,7 @@ def login():
     """ show login page if GET / handle login if POST """
     form = LoginForm()
 
-    return render_template('login.html', form=form)
+    return render_template('userLoginSignupForm/login.html', form=form)
 
 
 # sign up route
