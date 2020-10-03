@@ -6,7 +6,6 @@ app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.secret_key = "abc123"
 
-
 # landing page
 @app.route('/', methods=['GET', 'POST'])
 def homepage():

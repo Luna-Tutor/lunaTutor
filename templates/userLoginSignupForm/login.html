@@ -2,9 +2,30 @@
 
 
 <!-- Login Form -->
-<div> 
-    <h2>Signup Form<h2>
+<div class='container'> 
+    <h2 class="text-white">Account Login</h2>
     <!-- Add WTForm template -->
+    <form method='POST' class="entire-form">
+        {{ form.hidden_tag() }}
+            {% for field in form if field.widget.input_type != 'hidden' %}
+            <div class="form-group">
+                {{ field.label(class_='form-labels') }}
+                {{ field(class_='form-control') }}
+                {% for error in field.errors %}
+                <small class="form-text text-danger">
+                    {{error}}
+                </small>
+                {% endfor %}
+            </div>
+            {% endfor %}
+    <!-- End Add WTForm template -->
+    
+    <div class="float-right">
+        <button type='submit' class="btn btn-outline-primary">Log in</button>
+        <a href='/' class="btn btn-primary">Cancel</a>
+    </div>
+
+    </form>
 </div>
 
 <!-- Login Form End -->
