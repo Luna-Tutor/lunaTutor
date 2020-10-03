@@ -1,13 +1,35 @@
 {% extends "base.html" %} {% block title %}LunaTutor{% endblock %} {% block content %}
 
 
-<!-- Signup Form -->
-<div> 
-    <h2>Signup Form<h2>
-    <!-- Add WTForm template -->
+<!-- SignUp Form -->
+<div class='form-board-signup'>
+    <div class='container'> 
+        <h2 class="text-center">Sign Up</h2>
+        <!-- Add WTForm template -->
+        <form method='POST' class="entire-form">
+            {{ form.hidden_tag() }}
+                {% for field in form if field.widget.input_type != 'hidden' %}
+                <div class="form-group">
+                    {{ field.label(class_='form-labels') }}
+                    {{ field(class_='form-control') }}
+                    {% for error in field.errors %}
+                    <small class="form-text text-danger">
+                        {{error}}
+                    </small>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+        <!-- End Add WTForm template -->
     
-    <!-- End WTForm template -->
+        <div class="float-right">
+            <button type='submit' class="btn btn-outline-primary">Create Account</button>
+            <a href='/' class="btn btn-primary">Cancel</a>
+        </div>
+    
+        </form>
+    </div>
+
 </div>
 
-<!-- Signup Form End -->
+
 {% endblock %}

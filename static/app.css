@@ -32,6 +32,19 @@ body {
 
 /* Change login/signup form backgrounds */
 
+.form-board-signup {
+  background: rgba(255, 255, 255, 0.596);
+  border-radius: 5px;
+  min-height: 65vh;
+  padding: 35px;
+}
+
+.form-board-login {
+  background: rgba(255, 255, 255, 0.596);
+  border-radius: 5px;
+  min-height: 35vh;
+  padding: 35px;
+}
 
 /* Feed: */
 

@@ -68,8 +68,7 @@ class Question(db.Model):
                    primary_key=True,
                    autoincrement=True)
     title = db.Column(db.String(30),
-                      nullable=False,
-                      unique=True)
+                      nullable=False),
     content = db.Column(db.String(500),
                       nullable=False,
                       unique=True)
@@ -123,7 +122,7 @@ class Answer(db.Model):
     
     question = db.relationship("Question", backref="answers")
 
-    author = db.relationship("User", backred="users")
+    author = db.relationship("User", backref="users")
 
 
 
