@@ -37,21 +37,20 @@ class LoginForm(FlaskForm):
         Length(min=6, message=('Password needs to be 6 or more characters!'))
         ])
 
-# class QuestionForm(FlaskForm):
-#     """Ask Question"""
+class QuestionForm(FlaskForm):
+    """Ask Question"""
 
-#     subject = SelectField('Subject', validators=[
-#         DataRequired(),
-#         choices=SUBJECT_LIST
-#         ])
-#     title = StringField('Title', validators=[
-#         DataRequired()
-#         ])
-#     hashtag = StringField('Hashtag')
-#     details = StringField('Details', validators=[
-#         DataRequired(),
-#         Length(min=1, message=('Please fill in the details.'))
-#         ])
+    subject = SelectField('Subject', choices=SUBJECT_LIST, validators=[
+        DataRequired(),
+        ])
+    title = StringField('Title', validators=[
+        DataRequired()
+        ])
+    hashtag = StringField('Hashtag')
+    content = StringField('Content', validators=[
+        DataRequired(),
+        Length(min=1, message=('Please fill in the details.'))
+        ])
 
 class AnswerForm(FlaskForm):
     """Answer"""

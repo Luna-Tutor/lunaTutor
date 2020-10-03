@@ -1,0 +1,22 @@
+Templates
+
+login ("/login") :
+- login form
+
+signup ("/signup") :
+- signup form
+
+
+feed  ("/q") :
+- questions (all questions from most recent on top)
+- g for user model 
+
+subject feed  ("/q/<subject>") :
+- questions (all questions for that subject)
+
+question detail page ("/q/<subject>/:qid" ) :
+- question instance
+
+
+
+

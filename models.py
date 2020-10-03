@@ -74,10 +74,10 @@ class Question(db.Model):
                       nullable=False,
                       unique=True)
     subjectID = db.Column(db.Integer,
-                db.ForeignKey("subject.id"))
+                db.ForeignKey("subjects.id"))
     
     authorID =  db.Column(db.Integer,
-                db.ForeignKey("author.id"))
+                db.ForeignKey("users.id"))
        
     date = db.Column(db.String(20),
                    nullable=False,
@@ -85,6 +85,10 @@ class Question(db.Model):
     answered = db.Column(db.Boolean,
                    nullable=False,
                    default=True)
+    subject = db.relationship("Subject", backref="questions")
+
+    author = db.relationship("User", backref="questions")
+
     
 class Subject(db.Model):
     """Subject Model"""
@@ -94,7 +98,7 @@ class Subject(db.Model):
     id = db.Column(db.Integer,
                    primary_key=True,
                    autoincrement=True)
-    name = db.Column(db.string(20),
+    name = db.Column(db.String(20),
                      nullable=False,
                      unique=True)
 
@@ -107,33 +111,38 @@ class Answer(db.Model):
                    primary_key=True,
                    autoincrement=True)
     authorID =  db.Column(db.Integer,
-                db.ForeignKey("author.id"))
+                db.ForeignKey("users.id"))
     
     questionID = db.Column(db.Integer,
-                 db.ForeignKey("question.id"))
+                 db.ForeignKey("questions.id"))
+                 
     date = db.Column(db.String(20),
                    nullable=False,
                    default=datetime.utcnow())
     upvotes = db.Column(db.Integer)
+    
+    question = db.relationship("Question", backref="answers")
+
+    author = db.relationship("User", backred="users")
 
 
 
 class QuestionTag(db.Model):
     """Question Model"""
     
-    __tablename__="questionstag"
+    __tablename__="questionstags"
     
     id = db.Column(db.Integer,
                    primary_key=True,
                    autoincrement=True)    
     questionID =  db.Column(db.Integer,
-                  db.ForeignKey("question.id"))
+                  db.ForeignKey("questions.id"))
     tagID = db.Column(db.Integer,
-            db.ForeignKey("tag.id"))
+            db.ForeignKey("tags.id"))
             
 class Tag(db.Model):
     """Tag Model"""
-    __tablename__="tag"
+    __tablename__="tags"
     
     id = db.Column(db.Integer,
                    primary_key=True,
