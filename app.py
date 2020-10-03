@@ -1,4 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, session, flash, jsonify
+from models import connect_db, db, User, Question, Answer, Subject, 
+
 
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
