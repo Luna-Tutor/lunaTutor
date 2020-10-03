@@ -20,7 +20,7 @@ def homepage():
 
 # sign up route
 
-
+            
 
 # Question and answer routes 
 # What do the routes look like if taking an AJAX approach?
