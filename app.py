@@ -103,29 +103,7 @@ def signup():
         return redirect('/q')
     else:
         return render_template('userLoginSignupForm/signup.html', form=form)
-    # if request.method == 'POST':
-    #     if form.validate_on_submit():
-    #         # check for existing user
-    #         existing_user = User.query.filter_by(email=form.email.data)
 
-    #         if existing_user is None:
-    #             user = User.register(
-    #                 username=form.username.data,
-    #                 password=form.password.data,
-    #                 first_name=form.first_name.data,
-    #                 last_name=form.last_name.data,
-    #                 email=form.email.data
-    #             )
-    #         db.session.add(user)
-    #         db.session.commit()
-
-    #         do_login(user)
-    #         return redirect("/q")
-
-    #     # if existing_user if true:
-    #     flash('A user with that email exists.')
-    #     return redirect('/signup')
-    # # GET: render signup form
 
 
 @app.route('/logout')
@@ -182,12 +160,14 @@ def post_question():
             return redirect('/login')
         if form.validate_on_submit():
             subject = Subject.query.filter_by(name=form.subject.data).first()
+            list_hashtags = form.hashtag.data.split(' ')
+            
             question = Question(
                 subjectID=subject.id,
                 title=form.title.data,
                 content=form.content.data,
                 authorID=g.user.id,
-                hashtag=form.hashtag.data
+                hashtag=list_hashtags
             )
 
             db.session.add(question)
@@ -197,6 +177,22 @@ def post_question():
 
     return render_template('board/ask.html', form=form)
 
+
+@app.route('/q/tag/<tag>')
+def question_by_tag(tag):
+    """ show tag-specific questions """
+
+    questions = Question.query.filter_by(hashtag=tag).all()
+
+    trending_hashtags = db.session.execute(
+        'SELECT hashtag, COUNT(hashtag) from questions GROUP BY hashtag ORDER BY COUNT(hashtag) DESC LIMIT 10'
+    )
+
+    trending = [row[0] for row in trending_hashtags]
+
+    subjects = Subject.query.all()
+
+    return render_template('/board/feed.html', active_route=tag, questions=questions, trending=trending, subjects=subjects)
 
 @app.route('/q/<subject>/<int:qid>', methods=['GET', 'POST'])
 def question_detail_page(qid, subject):
