@@ -200,14 +200,10 @@ def question_detail_page(qid, subject):
     if form.validate_on_submit():
         # handle answer form
         answer = Answer(
-<<<<<<< HEAD
-            answer=form.answer.data
-=======
             content=form.answer.data,
             authorID=g.user.id,
             questionID=question.id,
             upvotes=1
->>>>>>> 6b6ddb54c2987190f25ed4fc6d20dc5446db6ce6
         )
         db.session.add(answer)
         db.session.commit()
