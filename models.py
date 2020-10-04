@@ -138,28 +138,28 @@ class Answer(db.Model):
 
 
 
-# class QuestionTag(db.Model):
-#     """Question Model"""
+class QuestionTag(db.Model):
+    """Question Model"""
     
-#     __tablename__="questionstags"
+    __tablename__="questionstags"
     
-#     id = db.Column(db.Integer,
-#                    primary_key=True,
-#                    autoincrement=True)    
-#     questionID =  db.Column(db.Integer,
-#                   db.ForeignKey("questions.id"))
-#     tagID = db.Column(db.Integer,
-#             db.ForeignKey("tags.id"))
+    id = db.Column(db.Integer,
+                   primary_key=True,
+                   autoincrement=True)    
+    questionID =  db.Column(db.Integer,
+                  db.ForeignKey("questions.id"))
+    tagID = db.Column(db.Integer,
+            db.ForeignKey("tags.id"))
             
-# class Tag(db.Model):
-#     """Tag Model"""
-#     __tablename__="tags"
+class Tag(db.Model):
+    """Tag Model"""
+    __tablename__="tags"
     
-#     id = db.Column(db.Integer,
-#                    primary_key=True,
-#                    autoincrement=True)       
-#     name = db.Column(db.String(20),
-#                    nullable=False)
+    id = db.Column(db.Integer,
+                   primary_key=True,
+                   autoincrement=True)       
+    name = db.Column(db.String(20),
+                   nullable=False)
 
 
 

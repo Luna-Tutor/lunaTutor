@@ -3,8 +3,6 @@ const favToggle = (event) => {
   let qId = event.target.parentElement.dataset.questionId;
   let $numUsers = $(`span[data-question-id=${qId}]`)[0];
 
-  console.log(event.target);
-
   if (eventClass.contains("fav")) {
     $numUsers.innerText = parseInt($numUsers.innerText) - 1;
   } else {

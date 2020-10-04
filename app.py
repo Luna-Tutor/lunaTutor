@@ -95,7 +95,7 @@ def signup():
         except IntegrityError:
             flash('Username already taken!', 'danger')
             return render_template('userLoginSignupForm/signup.html', form=form)
-        
+
         do_login(user)
 
         flash(f"Start answering & asking {user.first_name}!", 'success')
@@ -162,10 +162,12 @@ def show_question_feed():
 @app.route("/q/<subject>", methods=['GET'])
 def show_subject_questions(subject):
     """ show subject-specific questions """
-    subject_found= Subject.query.filter_by(name=subject.capitalize()).first()
+    subject_found = Subject.query.filter_by(name=subject.capitalize()).first()
+    subjects = Subject.query.all()
     questions = subject_found.questions
-    
-    return render_template('board/feed.html', questions=questions)
+
+    return render_template('board/feed.html', questions=questions, subjects=subjects)
+
 
 @app.route("/q/ask", methods=['GET', 'POST'])
 def post_question():
@@ -180,13 +182,13 @@ def post_question():
         if form.validate_on_submit():
             subject = Subject.query.filter_by(name=form.subject.data).first()
             question = Question(
-            subjectID = subject.id,
-            title= form.title.data,
-            content= form.content.data,
-            authorID= g.user.id,
-            hashtag=form.hashtag.data
+                subjectID=subject.id,
+                title=form.title.data,
+                content=form.content.data,
+                authorID=g.user.id,
+                hashtag=form.hashtag.data
             )
-            
+
             db.session.add(question)
             db.session.commit()
 
@@ -213,7 +215,7 @@ def question_detail_page(qid, subject):
         db.session.add(answer)
         db.session.commit()
 
-        question.answered=True
+        question.answered = True
         db.session.add(question)
         db.session.commit()
 
@@ -222,6 +224,8 @@ def question_detail_page(qid, subject):
     return render_template('board/question-detail.html', question=question, form=form)
 
 # About Page route
+
+
 @app.route('/about', methods=['GET'])
 def about():
     """Load about page for the project"""
