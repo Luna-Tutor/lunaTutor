@@ -2,17 +2,19 @@
 content %}
 
 <!-- Mission Statement -->
-<div class="mission_statement text-center">
-  <h1 class="display-1 text-white animate-med">Science For All</h1>
-</div>
+<div class="mission_statement animate-med text-center">
+  <h1 class="display-1 text-white">Science For All</h1>
+
 <!-- End  Mission Statement -->
-
-<!-- View all posts -->
-<div class="text-center m-5 animate-med">
-  <a class='btn btn-primary text-white btn-md' href='/q'>Answer or Ask Questions Now</a>
+<div class="m-3"></div>
+{% if g.user %}
+<a class='btn btn-danger text-white btn-lg' href='/q'>Go to Feed</a>
+{% else %}
+<a class='btn btn-danger text-white btn-lg' href='/q'>Browse As Guest</a>
+{% endif %}
 </div>
-<!-- End View all posts -->
 
+</div>
 {% endblock %} {% block scripts %}
 <script src="../static/js/home.js"></script>
 {% endblock %}

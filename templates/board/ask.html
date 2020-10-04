@@ -3,8 +3,8 @@ content %}
 
 <!-- Question Form -->
 <div class="container question-container">
-  <div class="register-form animate-loading hidden">
-    <h2 class="text-center">Post Your Question</h2>
+  <div class="register-form animate-loading hidden text-center">
+    <h1 class="display-3">Post Your Question</h1>
     <!-- Add WTForm template -->
     <form method="POST">
       {{ form.hidden_tag() }} {% for field in form if field.widget.input_type !=
@@ -19,8 +19,8 @@ content %}
       <!-- End Add WTForm template -->
 
       
-        <button class="btn btn-success btn-lg btn-block mt-3" type="submit">Log in</button>
-        <a href="/q" class="btn btn-lg btn-block btn-warning">Cancel</a>
+        <button class="btn btn-success btn-lg btn-block my-3" type="submit">Post Question</button>
+        <a href="/q" class="mt-3">(back to home)</a>
       
     </form>
   </div>
