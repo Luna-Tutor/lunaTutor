@@ -153,9 +153,12 @@ def show_question_feed():
 @app.route("/q/<subject>", methods=['GET'])
 def show_subject_questions(subject):
     """ show subject-specific questions """
-    questions = db.session.query(Question).filter(subject == subject).all()
-
+    subject_found= Subject.query.filter_by(name=subject.capitalize()).first()
+    questions = subject_found.questions
+    
     return render_template('board/feed.html', questions=questions)
+
+
 
 
 @app.route("/q/ask", methods=['GET', 'POST'])
