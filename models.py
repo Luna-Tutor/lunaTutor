@@ -67,9 +67,8 @@ class Question(db.Model):
     id = db.Column(db.Integer,
                    primary_key=True,
                    autoincrement=True)
-    title = db.Column(db.String(30),
-                      nullable=False,
-                      unique=True)
+    title = db.Column(db.String(70),
+                      nullable=False),
     content = db.Column(db.String(500),
                       nullable=False,
                       unique=True)
@@ -85,6 +84,7 @@ class Question(db.Model):
     answered = db.Column(db.Boolean,
                    nullable=False,
                    default=True)
+
     subject = db.relationship("Subject", backref="questions")
 
     author = db.relationship("User", backref="questions")
@@ -102,6 +102,7 @@ class Subject(db.Model):
                      nullable=False,
                      unique=True)
 
+
 class Answer(db.Model):
     """Answer Model"""
     
@@ -115,7 +116,10 @@ class Answer(db.Model):
     
     questionID = db.Column(db.Integer,
                  db.ForeignKey("questions.id"))
-                 
+
+    content= db.Column(db.String(700),
+                       nullable=False)
+
     date = db.Column(db.String(20),
                    nullable=False,
                    default=datetime.utcnow())
