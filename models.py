@@ -1,4 +1,4 @@
-""" SQLAlchemy models for Burijji Chat App """
+""" SQLAlchemy models for LunarTutor App"""
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt

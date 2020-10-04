@@ -42,6 +42,10 @@ class QuestionForm(FlaskForm):
 
     subject = SelectField('Subject', choices=SUBJECT_LIST, validators=[
         DataRequired(),
+<<<<<<< HEAD
+        choices = SUBJECT_LIST
+=======
+>>>>>>> e78ac40f667dbbef4f5d8e38f192b2e65f423659
         ])
     title = StringField('Title', validators=[
         DataRequired()
