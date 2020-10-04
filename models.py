@@ -78,12 +78,12 @@ class Question(db.Model):
     authorID =  db.Column(db.Integer,
                 db.ForeignKey("users.id"))
        
-    date = db.Column(db.String(20),
+    date = db.Column(db.String(50),
                    nullable=False,
                    default=datetime.utcnow())
     answered = db.Column(db.Boolean,
                    nullable=False,
-                   default=True)
+                   default=False)
 
     subject = db.relationship("Subject", backref="questions")
 

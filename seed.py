@@ -34,87 +34,87 @@ db.session.add_all([biology, chemistry, physics, astronomy])
 db.session.commit()
 
 
-nathan = User(
-    id=1,
-    username="nathan1",
-    password="aaa111",
-    first_name="nathan",
-    last_name="smith",
-    email="nathan@nathan.com"
-)
+# nathan = User(
+#     id=1,
+#     username="nathan1",
+#     password="aaa111",
+#     first_name="nathan",
+#     last_name="smith",
+#     email="nathan@nathan.com"
+# )
 
-sam = User(
-    id=2,
-    username="sam2",
-    password="bbb333",
-    first_name="sam",
-    last_name="samuel",
-    email="sam@sam.com"
-)
+# sam = User(
+#     id=2,
+#     username="sam2",
+#     password="bbb333",
+#     first_name="sam",
+#     last_name="samuel",
+#     email="sam@sam.com"
+# )
 
-terry = User(
-    id=3,
-    username="terry3",
-    password="ccc333",
-    first_name="terry",
-    last_name="terrrrryyy",
-    email="terry@terry.com"
-)
+# terry = User(
+#     id=3,
+#     username="terry3",
+#     password="ccc333",
+#     first_name="terry",
+#     last_name="terrrrryyy",
+#     email="terry@terry.com"
+# )
 
-jorge = User(
-    id=4,
-    username="jorge4",
-    password="ddd444",
-    first_name="jorge",
-    last_name="weiss",
-    email="jorge@jorge.com"
-)
+# jorge = User(
+#     id=4,
+#     username="jorge4",
+#     password="ddd444",
+#     first_name="jorge",
+#     last_name="weiss",
+#     email="jorge@jorge.com"
+# )
 
-db.session.add_all([jorge, nathan, sam, terry])
-db.session.commit()
-
-
-q1 = Question(
-    id=1,
-    title="What is an atom?",
-    content="Yeah so what is an atom????",
-    subjectID= 2,
-    authorID=1,
-    date="Oct3",
-    answered=False
-)
-
-q2 = Question(
-    id=2,
-    title="Why are planets round?",
-    content="Why are all the planets the same shape?",
-    subjectID=4,
-    authorID=2,
-    date="Oct 2",
-    answered=True
-)
-
-db.session.add_all([q1, q2])
-db.session.commit()
+# db.session.add_all([jorge, nathan, sam, terry])
+# db.session.commit()
 
 
-a1 = Answer(
-    id=1, 
-    authorID=3,
-    questionID=1,
-    content="An atom is the smalles unit of matter",
-    date="Oct 3",
-    upvotes= 5
-)
+# q1 = Question(
+#     id=1,
+#     title="What is an atom?",
+#     content="Yeah so what is an atom????",
+#     subjectID= 2,
+#     authorID=1,
+#     date="Oct3",
+#     answered=False
+# )
 
-a2 = Answer(
-    id=2,
-    authorID=4,
-    questionID=2,
-    content="A planet is that shape because of gravity",
-    date="Oct 3",
-    upvotes=10
-)
+# q2 = Question(
+#     id=2,
+#     title="Why are planets round?",
+#     content="Why are all the planets the same shape?",
+#     subjectID=4,
+#     authorID=2,
+#     date="Oct 2",
+#     answered=True
+# )
 
-db.session.add_all([a1, a2])
-db.session.commit()
+# db.session.add_all([q1, q2])
+# db.session.commit()
+
+
+# a1 = Answer(
+#     id=1, 
+#     authorID=3,
+#     questionID=1,
+#     content="An atom is the smalles unit of matter",
+#     date="Oct 3",
+#     upvotes= 5
+# )
+
+# a2 = Answer(
+#     id=2,
+#     authorID=4,
+#     questionID=2,
+#     content="A planet is that shape because of gravity",
+#     date="Oct 3",
+#     upvotes=10
+# )
+
+# db.session.add_all([a1, a2])
+# db.session.commit()
