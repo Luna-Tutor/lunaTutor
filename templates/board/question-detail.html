@@ -2,7 +2,10 @@
 content %}
 
 <div class="container question-board p-3">
-    <h1 class="display-5 font-weight-bold ml-5 mb-3">{{ question.title }}</h1>
+    <h1 class="display-5 font-weight-bold ml-5 mb-0">{{ question.title }}</h1>
+    <div class="ml-5 text-muted mt-0 mb-3"><small>posted in <a class="text-muted"
+                href="/q/{{question.subject.name}}">q/{{question.subject.name}}</a></small></div>
+
 
     <p class="ml-5">{{ question.content }}</p>
 
@@ -20,7 +23,7 @@ content %}
             <li class="list-group-item mb-1">
                 <div class="d-flex w-100">
                     <small>
-                        {{ answer.date }}
+                        {{ answer.date[:19] }}
                         {% if answer.top_response %}
                         <span class="top-answer badge badge-success badge-pill ml-3 p-1">Top Response</span>
                         {% endif %}
@@ -29,8 +32,9 @@ content %}
                 <p class="mb-1 lead">{{ answer.content }}</p>
                 {% if g.user %}
                 <div>
-                    <a data-question-id="{{question.id}}" href="#"><i class="upvote far fa-thumbs-up"></i></a>
-                    <small class="text-muted ml-2">(<span data-question-id="{{question.id}}">{{question.upvotes}}</span>
+                    <a data-question-id="{{question.id}}" data-answer-id="{{answer.id}}"
+                        data-subject="{{question.subject.name}}" href="#"><i class="upvote far fa-thumbs-up"></i></a>
+                    <small class="text-muted ml-2">(<span data-answer-id="{{answer.id}}">{{question.upvotes}}</span>
                         users found this answer
                         helpful)</small>
                 </div>
@@ -57,6 +61,8 @@ content %}
             Submit
         </button>
     </form>
+    {% else %}
+    <p class="text-center">Have an answer? <a href="/signup">Sign Up</a> or <a href="/login">Log in</a> </p>
     {% endif %}
     <div class="mt-3 text-center">
         <a href="/q">(back to home)</a>
