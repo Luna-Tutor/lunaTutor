@@ -1,6 +1,71 @@
 {% extends "base.html" %} {% block title %}Question{% endblock %} {% block
-content %} 
+content %}
 
-<h1>Testing</h1>
+<div class="container question-board p-3">
+    <h1 class="display-5 font-weight-bold ml-5 mb-3">{{ question.title }}</h1>
 
+    <p class="ml-5">{{ question.content }}</p>
+
+    {% if not question.answered %}
+    <span class="response-warning badge badge-warning badge-pill ml-5 p-1">No Answers!
+    </span>
+    {% endif %}
+
+    <div class="row">
+        <div class="col mx-5">
+            {% if question.answered %}
+            <p class="lead font-weight-bold">Answers:</p>
+            <ul class="list-group-hover text-left ml-0"></ul>
+            {% for answer in question.answers %}
+            <li class="list-group-item mb-1">
+                <div class="d-flex w-100">
+                    <small>
+                        {{ answer.date }}
+                        {% if answer.top_response %}
+                        <span class="top-answer badge badge-success badge-pill ml-3 p-1">Top Response</span>
+                        {% endif %}
+                    </small>
+                </div>
+                <p class="mb-1 lead">{{ answer.content }}</p>
+                {% if g.user %}
+                <div>
+                    <a data-question-id="{{question.id}}" href="#"><i class="upvote far fa-thumbs-up"></i></a>
+                    <small class="text-muted ml-2">(<span data-question-id="{{question.id}}">{{question.upvoted}}</span>
+                        users found this answer
+                        helpful)</small>
+                </div>
+                {% endif %}
+            </li>
+            {% endfor %}
+            {% endif %}
+            </ul>
+        </div>
+    </div>
+    <hr />
+    {% if g.user %}
+    <form class="mx-5" method="POST">
+        {{ form.hidden_tag() }} {% for field in form if field.widget.input_type !=
+    'hidden' %}
+        <div class="form-group">
+            <label class="font-weight-bold lead" for="answer">Submit An Answer:</label>
+            {{ field(class_='form-control') }} {% for error in field.errors %}
+            <small class="form-text text-danger"> {{error}} </small>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        <button class="btn btn-success btn-lg btn-block mt-3" type="submit">
+            Submit
+        </button>
+    </form>
+    {% endif %}
+    <div class="mt-3 text-center">
+        <a href="/q">(back to home)</a>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="/static/js/questionDetail.js"></script>
 {% endblock %}
