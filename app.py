@@ -178,7 +178,11 @@ def question_detail_page(qid):
     return render_template('board/question-detail.html', question=question, form=form)
 
 # About Page route
-# @app.route('/about', methd)
+@app.route('/about', methods=['GET'])
+def about():
+    """Load about page for the project"""
+
+    return render_template('about')
 
 # Question and answer routes
 # What do the routes look like if taking an AJAX approach?

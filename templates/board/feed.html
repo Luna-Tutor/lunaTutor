@@ -1,19 +1,20 @@
 {% extends "base.html" %} {% block title %}LunaTutor{% endblock %} {% block
 content %}
 
-<div class="container question-board text-center py-2">
-  <p class="lead text-left ml-3">All Questions <span class='float-right'><a class='btn btn-primary btn-sm' href='/q/ask'>Post a question now!</span></a></p>
+<div class="container question-board text-center p-3">
   <div class="row subject-top-bar my-0">
     <div class="col my-0">
+      <a class="mr-3" href="/q">All</a>
       <a class="mr-3" href="/q/biology">Biology</a>
       <a class="mr-3" href="/q/chemistry">Chemistry</a>
       <a class="mr-3" href="/q/physics">Physics</a>
       <a class="mr-3" href="/q/astronomy">Astronomy</a>
       <hr />
+      <a class='btn btn-danger btn-lg btn-block mb-3' href='/q/ask'>Ask A Question!</a>
     </div>
   </div>
   <div class="row question-list">
-    <div class="col">
+    <div class="col ml-0">
       <ul class="list-group-hover text-left ml-0">
         <!-- [example list item] FOR VISUAL PURPOSES ONLY-->
         <a href="#" class="list-group-item list-group-item-action mb-1">
@@ -28,7 +29,7 @@ content %}
             </small>
           </div>
 
-          <p class="mb-1">Can someone explain capacitance to me?</p>
+          <p class="mb-1">This is a static example question. Idealized format</p>
 
           <small class="text-muted font-italic mr-1">#physics</small>
           <small class="text-muted font-italic mr-1">#EXAMHELP</small>
@@ -68,8 +69,9 @@ content %}
         <!-- end list -->
       </ul>
     </div>
-    <div class="col-2 sidebar">
+    <div class="col-3 sidebar">
       <!-- SUBJECTS SIDE BAR -->
+      <a class='btn btn-danger btn-lg btn-block mb-3' href='/q/ask'>Ask A Question!</a>
       <div class="card subject-container text-left mb-4">
         <img
           src="/static/images/library.jpeg"
@@ -80,6 +82,7 @@ content %}
         <div class="text-center py-2">
           <h5 class="card-title">Subjects</h5>
           <div class="card-text">
+            <a class="d-block" href="/q/biology">All</a>
             <a class="d-block" href="/q/biology">Biology</a>
             <a class="d-block" href="/q/chemistry">Chemistry</a>
             <a class="d-block" href="/q/physics">Physics</a>

@@ -15,21 +15,6 @@ body {
   overflow: scroll;
 }
 
-/* Change buttons */
-/* .btn-outline-primary, .btn-outline-primary:hover, .btn-outline-primary:active, .btn-outline-primary:visited {
-  background-color: black !important;
-  color: white !important;
-  border-radius: 20px;
-  border-color: black
-}
-
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
-  background-color: white !important;
-  color: black !important;
-  border-radius: 20px;
-  border-color: white
-} */
-
 /* Change login/signup form backgrounds */
 .hidden {
   display: none;
@@ -59,7 +44,8 @@ body {
 
 .question-board {
   background: rgba(255, 255, 255, 0.596);
-  border-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
   min-height: 80vh;
 }
 
@@ -78,4 +64,8 @@ body {
   .sidebar {
     display: none;
   }
+}
+
+.list-group-hover {
+  padding-left: 0px;
 }
