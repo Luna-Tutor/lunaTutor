@@ -155,6 +155,7 @@ def show_question_feed():
         questions=questions,
         subjects=subjects,
         trending=trending,
+        active_route="all",
         user=g.user)
 
 
@@ -166,7 +167,7 @@ def show_subject_questions(subject):
     subjects = Subject.query.all()
     questions = subject_found.questions
 
-    return render_template('board/feed.html', questions=questions, subjects=subjects)
+    return render_template('board/feed.html', questions=questions, subjects=subjects, active_route=subject)
 
 
 @app.route("/q/ask", methods=['GET', 'POST'])

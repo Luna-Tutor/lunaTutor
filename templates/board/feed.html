@@ -5,10 +5,9 @@ content %}
   <div class="row subject-top-bar my-0">
     <div class="col my-0">
       <a class="mr-3" href="/q">All</a>
-      <a class="mr-3" href="/q/biology">Biology</a>
-      <a class="mr-3" href="/q/chemistry">Chemistry</a>
-      <a class="mr-3" href="/q/physics">Physics</a>
-      <a class="mr-3" href="/q/astronomy">Astronomy</a>
+      {% for subject in subjects %}
+      <a class="mr-3" href="/q/{{subject.name}}">{{ subject.name }}</a>
+      {% endfor %}
       <hr />
       <a class='btn btn-danger btn-lg btn-block mb-3' href='/q/ask'>Ask A Question!</a>
     </div>
@@ -21,10 +20,7 @@ content %}
           <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1 font-weight-bold">Capacitance</h5>
             <small>
-              <span
-                class="response-warning badge badge-warning badge-pill ml-3 p-1"
-                >No Answers!</span
-              >
+              <span class="response-warning badge badge-warning badge-pill ml-3 p-1">No Answers!</span>
               3 days ago
             </small>
           </div>
@@ -40,18 +36,13 @@ content %}
 
         <!-- [actual code] for list item -->
         {% for q in questions %}
-        <a
-          href="/q/{{ q.subject.name }}/{{ q.id }}"
-          class="list-group-item list-group-item-action mb-1"
-        >
+        <a href="/q/{{ q.subject.name }}/{{ q.id }}" class="list-group-item list-group-item-action mb-1">
           <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1 font-weight-bold">{{q.title}}</h5>
             <small>
               <!-- [warning badge] if question has no answers -->
               {% if not q.answered %}
-              <span
-                class="response-warning badge badge-warning badge-pill ml-3 p-1"
-                >No Answers!</span>
+              <span class="response-warning badge badge-warning badge-pill ml-3 p-1">No Answers!</span>
               {% endif %} {{ q.date[0:19] }}
             </small>
 
@@ -59,7 +50,7 @@ content %}
           </div>
 
           <p class="mb-1">{{ q.content }}</p>
-            <small class="text-muted mr-1">#{{ q.hashtag }}</small>
+          <small class="text-muted mr-1">#{{ q.hashtag }}</small>
         </a>
         {% endfor %}
         <!-- [end actual code] for list item -->
@@ -71,18 +62,21 @@ content %}
       <!-- SUBJECTS SIDE BAR -->
       <a class='btn btn-danger btn-lg btn-block mb-3' href='/q/ask'>Ask A Question!</a>
       <div class="card subject-container text-left mb-4">
-        <img
-          src="/static/images/library.jpeg"
-          style="height: 3em"
-          class="card-img-top"
-          alt="..."
-        />
+        <img src="/static/images/library.jpeg" style="height: 3em" class="card-img-top" alt="..." />
         <div class="text-center py-2">
           <h5 class="card-title">Subjects</h5>
           <div class="card-text">
+            {% if active_route == "all" %}
+            <a class="d-block active-route" href="/q">All</a>
+            {% else %}
             <a class="d-block" href="/q">All</a>
+            {% endif %}
             {% for subject in subjects %}
+            {% if subject.name == active_route %}
+            <a class="d-block active-route" href="/q/{{ subject.name }}">{{subject.name}}</a>
+            {% else %}
             <a class="d-block" href="/q/{{ subject.name }}">{{subject.name}}</a>
+            {% endif %}
             {% endfor %}
           </div>
         </div>
@@ -99,7 +93,7 @@ content %}
             {% endfor %}
           </div>
         </div>
-      </div> 
+      </div>
     </div>
   </div>
 </div>
