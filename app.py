@@ -208,6 +208,10 @@ def question_detail_page(qid, subject):
         db.session.add(answer)
         db.session.commit()
 
+        question.answered=True
+        db.session.add(question)
+        db.session.commit()
+
         return redirect(f'/q/{subject}/{qid}')
 
     return render_template('board/question-detail.html', question=question, form=form)
