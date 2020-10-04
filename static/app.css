@@ -69,3 +69,7 @@ body {
 .list-group-hover {
   padding-left: 0px;
 }
+
+.fav {
+  color: rgb(113, 187, 103);
+}
