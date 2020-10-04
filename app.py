@@ -178,13 +178,14 @@ def post_question():
             subjectID = subject.id,
             title= form.title.data,
             content= form.content.data,
-            authorID= g.user.id
+            authorID= g.user.id,
+            hashtag=form.hashtag.data
             )
             
             db.session.add(question)
             db.session.commit()
 
-            return redirect(f'/q/{subject.name}')
+            return redirect(f'/q/{question.subject.name}')
 
     return render_template('board/ask.html', form=form)
 
@@ -198,7 +199,7 @@ def question_detail_page(qid, subject):
 
     if form.validate_on_submit():
         # handle answer form
-        answer = Answer.post(
+        answer = Answer(
             answer=form.answer.data
         )
         db.session.add(answer)

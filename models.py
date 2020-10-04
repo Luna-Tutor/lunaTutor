@@ -82,7 +82,7 @@ class Question(db.Model):
     hashtag = db.Column(db.String(50))
        
     #######################################
-    date = db.Column(db.String(20),
+    date = db.Column(db.String(40),
                    nullable=False,
                    default=datetime.utcnow())
     answered = db.Column(db.Boolean,
