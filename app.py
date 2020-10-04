@@ -182,10 +182,11 @@ def post_question():
                 content=form.content.data,
                 hashtag=form.hashtag.data
             )
+            #ok i think that should work. I'm gonna run it on flask
             db.session.add(question)
             db.session.commit()
 
-            return redirect(f'/q/{question.subject}')
+            return redirect(f'/q/{subject}')
 
     return render_template('board/ask.html', form=form)
 

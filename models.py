@@ -87,7 +87,7 @@ class Question(db.Model):
                    default=datetime.utcnow())
     answered = db.Column(db.Boolean,
                    nullable=False,
-                   default=True)
+                   default=False)
 
     subject = db.relationship("Subject", backref="questions")
 

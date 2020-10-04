@@ -15,7 +15,7 @@ content %}
   </div>
   <div class="row question-list">
     <div class="col ml-0">
-      <ul class="list-group-hover text-left ml-0">
+      <div class="list-group-hover text-left ml-0">
         <!-- [example list item] FOR VISUAL PURPOSES ONLY-->
         <a href="#" class="list-group-item list-group-item-action mb-1">
           <div class="d-flex w-100 justify-content-between">
@@ -65,7 +65,7 @@ content %}
         <!-- [end actual code] for list item -->
 
         <!-- end list -->
-      </ul>
+      </div>
     </div>
     <div class="col-3 sidebar">
       <!-- SUBJECTS SIDE BAR -->
@@ -88,18 +88,18 @@ content %}
         </div>
       </div>
 
-      <!-- HASHTAGS SIDE BAR -->
-      <div class="card hashtag-container text-left mb-4">
+      <!-- HASHTAGS SIDE BAR - TO BE IMPLEMENTED LATER -->
+      <!-- <div class="card hashtag-container text-left mb-4">
         <div class="text-center py-2">
           <h5 class="card-title">#trending</h5>
-          <div class="card-text">
+          <div class="card-text"> -->
             <!-- FOR VISUAL PURPOSES ONLY -->
             {% for q in questions %}
             <a class="d-block" href="#">#{{ q.hashtag }}</a>
             {% endfor %}
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
