@@ -124,7 +124,7 @@ class Answer(db.Model):
     content= db.Column(db.String(700),
                        nullable=False)
 
-    date = db.Column(db.String(20),
+    date = db.Column(db.String(50),
                    nullable=False,
                    default=datetime.utcnow())
     #######################################
