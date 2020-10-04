@@ -2,13 +2,13 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, PasswordField, SelectField
 from wtforms.validators import DataRequired, Email, Length
 
-SUBJECT_LIST = [('bio', 'Biology'), ('phy', 'Physics'), ('che', 'Chemistry')]
+SUBJECT_LIST = [('Biology', 'Biology'), ('Physics', 'Physics'), ('Chemistry', 'Chemistry'), ('Astronomy', 'Astronomy')]
 
 
 class SignUpForm(FlaskForm):
     """Signup Form"""
 
-    username = StringField('Name', validators=[
+    username = StringField('Username', validators=[
         DataRequired()
     ])
     email = StringField('Email', validators=[

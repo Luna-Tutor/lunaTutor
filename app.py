@@ -172,7 +172,6 @@ def post_question():
         if not g.user:
             return redirect('/login')
         if form.validate_on_submit():
-            # hardcoding subject below until get an update on form.
             subject = Subject.query.filter_by(name=form.subject.data).first()
             question = Question(
             subjectID = subject.id,
@@ -180,11 +179,11 @@ def post_question():
             content= form.content.data,
             authorID= g.user.id
             )
-            #ok i think that should work. I'm gonna run it on flask
+            
             db.session.add(question)
             db.session.commit()
 
-            return redirect(f'/q/{subject}')
+            return redirect(f'/q/{subject.name}')
 
     return render_template('board/ask.html', form=form)
 
