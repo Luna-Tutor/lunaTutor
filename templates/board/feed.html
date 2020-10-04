@@ -1,27 +1,20 @@
 {% extends "base.html" %} {% block title %}LunaTutor{% endblock %} {% block
 content %}
 
-<div class="container question-board text-center">
-  <h1>Feed</h1>
-  <div class="row mb-3 px-5">
-    <div class="col btn-group btn-group-toggle" role="group" data-toggle="buttons" aria-label="subject-buttons">
-      <label class="btn btn-secondary active">
-        <input type="radio" name="options" id="option1"> Biology
-      </label>
-      <label class="btn btn-secondary">
-        <input type="radio" name="options" id="option2"> Chemistry
-      </label>
-      <label class="btn btn-secondary">
-        <input type="radio" name="options" id="option2"> Physics
-      </label>
-      <label class="btn btn-secondary">
-        <input type="radio" name="options" id="option2"> Astronomy
-      </label>
+<div class="container question-board text-center py-2">
+  <p class="lead text-left ml-3">All Questions <span class='float-right'><a class='btn btn-primary btn-sm' href='/q/ask'>Post a question now!</span></a></p>
+  <div class="row subject-top-bar my-0">
+    <div class="col my-0">
+      <a class="mr-3" href="/q/biology">Biology</a>
+      <a class="mr-3" href="/q/chemistry">Chemistry</a>
+      <a class="mr-3" href="/q/physics">Physics</a>
+      <a class="mr-3" href="/q/astronomy">Astronomy</a>
+      <hr />
     </div>
   </div>
-  <div class="row">
-    <div class="col-10">
-      <ul class="list-group-hover text-left">
+  <div class="row question-list">
+    <div class="col">
+      <ul class="list-group-hover text-left ml-0">
         <!-- [example list item] FOR VISUAL PURPOSES ONLY-->
         <a href="#" class="list-group-item list-group-item-action mb-1">
           <div class="d-flex w-100 justify-content-between">
@@ -41,66 +34,74 @@ content %}
           <small class="text-muted font-italic mr-1">#EXAMHELP</small>
           <small class="text-muted font-italic mr-1">#completelyconfused</small>
         </a>
+
         <!-- [end example list item] FOR VISUAL PURPOSES ONLY -->
 
         <!-- [actual code] for list item -->
         {% for q in questions %}
         <a
           href="/q/{{ q.subject }}/{{ q.id }}"
-          class="list-group-item list-group-item-action"
+          class="list-group-item list-group-item-action mb-1"
         >
           <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">Capacitance</h5>
+            <h5 class="mb-1 font-weight-bold">{{q.title}}</h5>
             <small>
               <!-- [warning badge] if question has no answers -->
-              {% if len(q.answers) == 0 %}
+              {% if not q.answered %}
               <span
                 class="response-warning badge badge-warning badge-pill ml-3 p-1"
-                >No Answers!</span
-              >
-              3 days ago
+                >No Answers!</span>
+              {% endif %} {{ q.date }}
             </small>
-            {% endif %}
+
             <!-- [end warning badge] -->
           </div>
 
-          <p class="mb-1">Can someone explain capcitance to me?</p>
-          {% for tag in q.hashtags %}
+          <p class="mb-1">{{ q.content }}</p>
+          <!-- {% for tag in q.hashtags %}
           <small class="text-muted mr-1">#{{ tag.content }}</small>
-          {% endfor %}
+          {% endfor %} -->
         </a>
         {% endfor %}
         <!-- [end actual code] for list item -->
 
-        <!-- end example list -->
+        <!-- end list -->
       </ul>
     </div>
-    <div class="col-2 hashtag-container">
-      <p class="display-5">#trending</p>
-      <a href="#" class="badge badge-pill d-block mb-2 py-1 badge-primary"
-        >#reports</a
-      >
-      <a href="#" class="badge badge-pill d-block mb-2 py-1 badge-secondary"
-        >#molecularbiology</a
-      >
-      <a href="#" class="badge badge-pill d-block mb-2 py-1 badge-success"
-        >#newtonslaws</a
-      >
-      <a href="#" class="badge badge-pill d-block mb-2 py-1 badge-danger"
-        >#EXAMHELP</a
-      >
-      <a href="#" class="badge badge-pill d-block mb-2 py-1 badge-warning"
-        >#pneumonicdevice</a
-      >
-      <a href="#" class="badge badge-pill d-block mb-2 py-1 badge-info"
-        >#mentor</a
-      >
-      <a href="#" class="badge badge-pill d-block mb-2 py-1 badge-light"
-        >#lookingforbooks</a
-      >
-      <a href="#" class="badge badge-pill d-block mb-2 py-1 badge-dark"
-        >#eli5</a
-      >
+    <div class="col-2 sidebar">
+      <!-- SUBJECTS SIDE BAR -->
+      <div class="card subject-container text-left mb-4">
+        <img
+          src="/static/images/library.jpeg"
+          style="height: 3em"
+          class="card-img-top"
+          alt="..."
+        />
+        <div class="text-center py-2">
+          <h5 class="card-title">Subjects</h5>
+          <div class="card-text">
+            <a class="d-block" href="/q/biology">Biology</a>
+            <a class="d-block" href="/q/chemistry">Chemistry</a>
+            <a class="d-block" href="/q/physics">Physics</a>
+            <a class="d-block" href="/q/astronomy">Astronomy</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- HASHTAGS SIDE BAR -->
+      <div class="card hashtag-container text-left mb-4">
+        <div class="text-center py-2">
+          <h5 class="card-title">#trending</h5>
+          <div class="card-text">
+            <!-- FOR VISUAL PURPOSES ONLY -->
+            <a class="d-block" href="#">#testhashtag</a>
+            <a class="d-block" href="#">#testhash</a>
+            <a class="d-block" href="#">#testtag</a>
+            <a class="d-block" href="#">#bananahashtag</a>
+            <a class="d-block" href="#">#testhashtag</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

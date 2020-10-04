@@ -40,15 +40,18 @@ class LoginForm(FlaskForm):
 class QuestionForm(FlaskForm):
     """Ask Question"""
 
-    subject = SelectField('Subject', validators=[
+    subject = SelectField('Subject', choices=SUBJECT_LIST, validators=[
         DataRequired(),
+<<<<<<< HEAD
         choices = SUBJECT_LIST
+=======
+>>>>>>> e78ac40f667dbbef4f5d8e38f192b2e65f423659
         ])
     title = StringField('Title', validators=[
         DataRequired()
         ])
     hashtag = StringField('Hashtag')
-    details = StringField('Details', validators=[
+    content = StringField('Content', validators=[
         DataRequired(),
         Length(min=1, message=('Please fill in the details.'))
         ])
@@ -56,6 +59,6 @@ class QuestionForm(FlaskForm):
 class AnswerForm(FlaskForm):
     """Answer"""
 
-    answer = TextField('Answer', validators=[
+    answer = TextAreaField('Answer', validators=[
       DataRequired()
     ])
