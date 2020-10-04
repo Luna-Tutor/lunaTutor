@@ -68,7 +68,8 @@ class Question(db.Model):
                    primary_key=True,
                    autoincrement=True)
     title = db.Column(db.String(30),
-                      nullable=False),
+                      nullable=False,
+                      unique=True)
     content = db.Column(db.String(500),
                       nullable=False,
                       unique=True)

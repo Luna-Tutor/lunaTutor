@@ -1,0 +1,31 @@
+{% extends "base.html" %} {% block title %}LunaTutor{% endblock %} {% block
+content %}
+
+<!-- Question Form -->
+<div class="container question-container">
+  <div class="register-form animate-loading hidden">
+    <h2 class="text-center">Post Your Question</h2>
+    <!-- Add WTForm template -->
+    <form method="POST">
+      {{ form.hidden_tag() }} {% for field in form if field.widget.input_type !=
+      'hidden' %}
+      <div class="form-group">
+        {{ field.label }} {{ field(class_='form-control') }} {% for error in
+        field.errors %}
+        <small class="form-text text-danger"> {{error}} </small>
+        {% endfor %}
+      </div>
+      {% endfor %}
+      <!-- End Add WTForm template -->
+
+      
+        <button class="btn btn-success btn-lg btn-block mt-3" type="submit">Log in</button>
+        <a href="/q" class="btn btn-lg btn-block btn-warning">Cancel</a>
+      
+    </form>
+  </div>
+</div>
+
+{% endblock %} {% block scripts %}
+<script src="../../static/js/question.js"></script>
+{% endblock %}

@@ -16,7 +16,7 @@ body {
 }
 
 /* Change buttons */
-.btn-outline-primary, .btn-outline-primary:hover, .btn-outline-primary:active, .btn-outline-primary:visited {
+/* .btn-outline-primary, .btn-outline-primary:hover, .btn-outline-primary:active, .btn-outline-primary:visited {
   background-color: black !important;
   color: white !important;
   border-radius: 20px;
@@ -28,22 +28,31 @@ body {
   color: black !important;
   border-radius: 20px;
   border-color: white
-}
+} */
 
 /* Change login/signup form backgrounds */
-
-.form-board-signup {
-  background: rgba(255, 255, 255, 0.596);
-  border-radius: 5px;
-  min-height: 65vh;
-  padding: 35px;
+.hidden {
+  display: none;
 }
 
-.form-board-login {
-  background: rgba(255, 255, 255, 0.596);
-  border-radius: 5px;
-  min-height: 35vh;
-  padding: 35px;
+.register-container {
+  max-width: 450px;
+}
+
+.question-container {
+  max-width: 600px;
+  width: 100%;
+}
+
+.register-form {
+  position: relative;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.836);
+  border: 1px solid rgb(172, 172, 172);
+  border-radius: 10px;
+  margin-top: 30px;
+  padding: 20px;
+  z-index: 1;
 }
 
 /* Feed: */

@@ -5,4 +5,8 @@ if ($('.animate-med')) {
   }, 1000);
 }
 
+if ($(".animate-loading")) {
+  $(".animate-loading").delay(50).fadeIn(650);
+}
+
 $(".navbar").css("background-color", "rgba(255, 255, 255, 0)")
