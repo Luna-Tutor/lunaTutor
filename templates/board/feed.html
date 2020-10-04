@@ -52,7 +52,7 @@ content %}
               <span
                 class="response-warning badge badge-warning badge-pill ml-3 p-1"
                 >No Answers!</span>
-              {% endif %} {{ q.date }}
+              {% endif %} {{ q.date[0:19] }}
             </small>
 
             <!-- [end warning badge] -->
@@ -89,17 +89,17 @@ content %}
       </div>
 
       <!-- HASHTAGS SIDE BAR - TO BE IMPLEMENTED LATER -->
-      <!-- <div class="card hashtag-container text-left mb-4">
+      <div class="card hashtag-container text-left mb-4">
         <div class="text-center py-2">
           <h5 class="card-title">#trending</h5>
-          <div class="card-text"> -->
+          <div class="card-text">
             <!-- FOR VISUAL PURPOSES ONLY -->
-            {% for q in questions %}
-            <a class="d-block" href="#">#{{ q.hashtag }}</a>
+            {% for tag in trending %}
+            <a class="d-block" href="#">#{{ tag }}</a>
             {% endfor %}
           </div>
         </div>
-      </div> -->
+      </div> 
     </div>
   </div>
 </div>

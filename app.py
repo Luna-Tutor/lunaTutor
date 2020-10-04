@@ -143,13 +143,18 @@ def show_question_feed():
     """ show the question feed across all subjects """
 
     questions = Question.query.all()
-
     subjects = Subject.query.all()
+
+    trending_hashtags = db.session.execute(
+        'SELECT hashtag, COUNT(hashtag) from questions GROUP BY hashtag ORDER BY COUNT(hashtag) DESC LIMIT 10'
+    )
+    trending = [row[0] for row in trending_hashtags]
 
     return render_template(
         '/board/feed.html',
         questions=questions,
         subjects=subjects,
+        trending=trending,
         user=g.user)
 
 
