@@ -118,6 +118,7 @@ def show_question_feed():
     """ show the question feed across all subjects """
 
     questions = Question.query.all()
+
     hashtags = Tag.query.all()
 
     return render_template('/board/feed.html', questions=questions, hashtags=hashtags, user=g.user)
@@ -177,7 +178,7 @@ def question_detail_page(qid):
     return render_template('board/question-detail.html', question=question, form=form)
 
 # About Page route
-@app.route('/about', methd)
+# @app.route('/about', methd)
 
 # Question and answer routes
 # What do the routes look like if taking an AJAX approach?
