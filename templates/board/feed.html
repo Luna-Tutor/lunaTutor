@@ -59,9 +59,7 @@ content %}
           </div>
 
           <p class="mb-1">{{ q.content }}</p>
-          <!-- {% for tag in q.hashtags %}
-          <small class="text-muted mr-1">#{{ tag.content }}</small>
-          {% endfor %} -->
+            <small class="text-muted mr-1">#{{ q.hashtag }}</small>
         </a>
         {% endfor %}
         <!-- [end actual code] for list item -->
@@ -83,10 +81,9 @@ content %}
           <h5 class="card-title">Subjects</h5>
           <div class="card-text">
             <a class="d-block" href="/q">All</a>
-            <a class="d-block" href="/q/biology">Biology</a>
-            <a class="d-block" href="/q/chemistry">Chemistry</a>
-            <a class="d-block" href="/q/physics">Physics</a>
-            <a class="d-block" href="/q/astronomy">Astronomy</a>
+            {% for subject in subjects %}
+            <a class="d-block" href="/q/{{ subject.name }}">{{subject.name}}</a>
+            {% endfor %}
           </div>
         </div>
       </div>
@@ -97,11 +94,9 @@ content %}
           <h5 class="card-title">#trending</h5>
           <div class="card-text">
             <!-- FOR VISUAL PURPOSES ONLY -->
-            <a class="d-block" href="#">#testhashtag</a>
-            <a class="d-block" href="#">#testhash</a>
-            <a class="d-block" href="#">#testtag</a>
-            <a class="d-block" href="#">#bananahashtag</a>
-            <a class="d-block" href="#">#testhashtag</a>
+            {% for q in questions %}
+            <a class="d-block" href="#">#{{ q.hashtag }}</a>
+            {% endfor %}
           </div>
         </div>
       </div>

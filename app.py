@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, session, flash, g
-from models import connect_db, db, User, Question, Answer, Subject, Tag
+from models import connect_db, db, User, Question, Answer, Subject
 from forms import LoginForm, SignUpForm, AnswerForm, QuestionForm
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
@@ -144,9 +144,13 @@ def show_question_feed():
 
     questions = Question.query.all()
 
-    hashtags = Tag.query.all()
+    subjects = Subject.query.all()
 
-    return render_template('/board/feed.html', questions=questions, hashtags=hashtags, user=g.user)
+    return render_template(
+        '/board/feed.html',
+        questions=questions,
+        subjects=subjects,
+        user=g.user)
 
 
 # subject feed route
@@ -157,9 +161,6 @@ def show_subject_questions(subject):
     questions = subject_found.questions
     
     return render_template('board/feed.html', questions=questions)
-
-
-
 
 @app.route("/q/ask", methods=['GET', 'POST'])
 def post_question():
@@ -172,6 +173,9 @@ def post_question():
         if not g.user:
             return redirect('/login')
         if form.validate_on_submit():
+
+            subject_found= Subject.query.filter_by(name=subject.capitalize()).first()
+
             question = Question.post(
                 subject=form.subject.data,
                 title=form.title.data,

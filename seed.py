@@ -35,7 +35,7 @@ db.session.commit()
 
 
 nathan = User(
-    id=1,
+    id=11,
     username="nathan1",
     password="aaa111",
     first_name="nathan",
@@ -44,7 +44,7 @@ nathan = User(
 )
 
 sam = User(
-    id=2,
+    id=12,
     username="sam2",
     password="bbb333",
     first_name="sam",
@@ -53,7 +53,7 @@ sam = User(
 )
 
 terry = User(
-    id=3,
+    id=13,
     username="terry3",
     password="ccc333",
     first_name="terry",
@@ -62,7 +62,7 @@ terry = User(
 )
 
 jorge = User(
-    id=4,
+    id=14,
     username="jorge4",
     password="ddd444",
     first_name="jorge",
@@ -79,7 +79,8 @@ q1 = Question(
     title="What is an atom?",
     content="Yeah so what is an atom????",
     subjectID= 2,
-    authorID=1,
+    authorID=11,
+    hashtag="atom",
     date="Oct3",
     answered=False
 )
@@ -89,7 +90,8 @@ q2 = Question(
     title="Why are planets round?",
     content="Why are all the planets the same shape?",
     subjectID=4,
-    authorID=2,
+    authorID=12,
+    hashtag="planets",
     date="Oct 2",
     answered=True
 )
@@ -100,7 +102,7 @@ db.session.commit()
 
 a1 = Answer(
     id=1, 
-    authorID=3,
+    authorID=13,
     questionID=1,
     content="An atom is the smalles unit of matter",
     date="Oct 3",
@@ -109,7 +111,7 @@ a1 = Answer(
 
 a2 = Answer(
     id=2,
-    authorID=4,
+    authorID=14,
     questionID=2,
     content="A planet is that shape because of gravity",
     date="Oct 3",
