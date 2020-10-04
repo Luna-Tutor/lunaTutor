@@ -29,12 +29,12 @@ content %}
                 <p class="mb-1 lead">{{ answer.content }}</p>
                 {% if g.user %}
                 <div>
-                    <a data-question-id="{{question.id}}" href="{{ url_for('liking', answerID=answer.id, action='like')}}"><i class="upvote far fa-thumbs-up"></i></a>
-                    <a data-question-id="{{question.id}}" href="{{ url_for('liking', answerID=answer.id, action='unlike')}}"><i class="far fa-thumbs-down"></i></a>
+                    <a data-question-id="{{question.id}}" href="{{ url_for('liking', answerID=answer.id, action='like')}}"><i class="fav fas  fa-thumbs-up"></i></a>
+                    <a data-question-id="{{question.id}}" href="{{ url_for('liking', answerID=answer.id, action='unlike')}}"><i class="far fa-thumbs-down"></i></a>                    
                     <small class="text-muted ml-2">(<span data-question-id="{{question.id}}">{{answer.likes.count()}}</span>
                         users found this answer
                         helpful)</small>
-                </div>
+            </div>
                 {% endif %} 
             </li>
             {% endfor %}

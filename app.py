@@ -218,13 +218,12 @@ def liking(answerID, action):
     if action == 'like':
         g.user.like_answer(answer)
         db.session.commit()
-        return jsonify(f'liked')
 
     if action == 'unlike':
         g.user.unlike_answer(answer)
         db.session.commit()
-        return jsonify('unlike')
 
+    return redirect(request.referrer)
     # Question and answer routes
     # What do the routes look like if taking an AJAX approach?
     # It may be simpler to just create a route for each subject and question
