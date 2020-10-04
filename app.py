@@ -197,13 +197,16 @@ def question_detail_page(qid, subject):
 
     if form.validate_on_submit():
         # handle answer form
-        answer = Answer.post(
-            answer=form.answer.data
+        answer = Answer(
+            content=form.answer.data,
+            authorID=g.user.id,
+            questionID=question.id,
+            upvotes=1
         )
         db.session.add(answer)
         db.session.commit()
 
-        return redirect(f'/q/{question.subject}/{qid}')
+        return redirect(f'/q/{subject}/{qid}')
 
     return render_template('board/question-detail.html', question=question, form=form)
 

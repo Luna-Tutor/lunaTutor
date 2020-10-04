@@ -41,7 +41,7 @@ content %}
         <!-- [actual code] for list item -->
         {% for q in questions %}
         <a
-          href="/q/{{ q.subject }}/{{ q.id }}"
+          href="/q/{{ q.subject.name }}/{{ q.id }}"
           class="list-group-item list-group-item-action mb-1"
         >
           <div class="d-flex w-100 justify-content-between">
