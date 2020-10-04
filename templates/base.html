@@ -7,8 +7,8 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.0/css/all.css" />
-  <link rel="shortcut icon" type="image/jpg" href="../static/images/luna_icon.png" />
-  <link rel="stylesheet" href="../static/app.css" />
+  <link rel="shortcut icon" type="image/jpg" href="/static/images/luna_icon.png" />
+  <link rel="stylesheet" href="/static/app.css" />
   <title>{% block title %}{% endblock %}</title>
 </head>
 
@@ -32,12 +32,9 @@
           <li><a class="nav-link pl-3 text-light" href="/login">Log In</a></li>
           {% else %}
           <li>
-            <a class="nav-link" href="/users/{{ g.user.id }}">
+            <a class="nav-link pl-3" href="/users/{{ g.user.id }}">
               <i class="fas fa-user fa-sm"></i> <span class="current-user-name">{{g.user.username}}</span>
             </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link pl-3 text-light" href="/trails/search">Find Your Trail</a>
           </li>
           <li><a class="nav-link pl-3 text-light" href="/logout">Log Out</a></li>
           {% endif %}
@@ -57,6 +54,7 @@
   integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
   integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  <script src="/static/js/generalUi.js"></script>
 {% block scripts %}{% endblock %}
 
 </html>

@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, session, flash, g
 from models import connect_db, db, User, Question, Answer, Subject, Tag
 from forms import LoginForm, SignUpForm, AnswerForm, QuestionForm
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.exc import IntegrityError
 import os
 
 app = Flask(__name__)
@@ -14,7 +15,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
 connect_db(app)
 
 
-CURR_USER_KEY = 'user'
+CURR_USER_KEY = 'userin'
 
 
 @app.before_request
@@ -77,30 +78,54 @@ def login():
 def signup():
     """ show signup page with form if GET / handle signup if POST """
     form = SignUpForm()
-    if request.method == 'POST':
-        if form.validate_on_submit():
-            # check for existing user
-            existing_user = User.query.filter_by(email=form.email.data)
 
-            if existing_user is None:
-                user = User.register(
-                    username=form.username.data,
-                    password=form.password.data,
-                    first_name=form.first_name.data,
-                    last_name=form.last_name.data,
-                    email=form.email.data
-                )
+    if form.validate_on_submit():
+        try:
+            user = User.register(
+                username=form.username.data,
+                password=form.password.data,
+                first_name=form.first_name.data,
+                last_name=form.last_name.data,
+                email=form.email.data
+            )
+
             db.session.add(user)
             db.session.commit()
 
-            do_login(user)
-            return redirect("/q")
+        except IntegrityError:
+            flash('Username already taken!', 'danger')
+            return render_template('userLoginSignupForm/signup.html', form=form)
+        
+        do_login(user)
 
-        # if existing_user if true:
-        flash('A user with that email exists.')
-        return redirect('/signup')
-    # GET: render signup form
-    return render_template('userLoginSignupForm/signup.html', form=form)
+        flash(f"Start answering & asking {user.first_name}!", 'success')
+
+        return redirect('/q')
+    else:
+        return render_template('userLoginSignupForm/signup.html', form=form)
+    # if request.method == 'POST':
+    #     if form.validate_on_submit():
+    #         # check for existing user
+    #         existing_user = User.query.filter_by(email=form.email.data)
+
+    #         if existing_user is None:
+    #             user = User.register(
+    #                 username=form.username.data,
+    #                 password=form.password.data,
+    #                 first_name=form.first_name.data,
+    #                 last_name=form.last_name.data,
+    #                 email=form.email.data
+    #             )
+    #         db.session.add(user)
+    #         db.session.commit()
+
+    #         do_login(user)
+    #         return redirect("/q")
+
+    #     # if existing_user if true:
+    #     flash('A user with that email exists.')
+    #     return redirect('/signup')
+    # # GET: render signup form
 
 
 @app.route('/logout')
@@ -159,7 +184,7 @@ def post_question():
 
 
 @app.route('/q/<subject>/<int:qid>', methods=['GET', 'POST'])
-def question_detail_page(qid):
+def question_detail_page(qid, subject):
     """ Show detail on question and all answers / if Post, handle answer """
     form = AnswerForm()
 
@@ -182,7 +207,7 @@ def question_detail_page(qid):
 def about():
     """Load about page for the project"""
 
-    return render_template('about')
+    return render_template('about.html')
 
 # Question and answer routes
 # What do the routes look like if taking an AJAX approach?
