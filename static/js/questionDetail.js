@@ -1,7 +1,9 @@
+// Visual change when clicking upvote button
 const favToggle = (event) => {
   let eventClass = event.target.classList;
-  let qId = event.target.parentElement.dataset.questionId;
-  let $numUsers = $(`span[data-question-id=${qId}]`)[0];
+  // let qId = event.target.parentElement.dataset.questionId;
+  let aId = event.target.parentElement.dataset.answerId;
+  let $numUsers = $(`span[data-answer-id=${aId}]`)[0];
 
   if (eventClass.contains("fav")) {
     $numUsers.innerText = parseInt($numUsers.innerText) - 1;
@@ -17,5 +19,15 @@ const favToggle = (event) => {
   eventClass.toggle("far");
   eventClass.toggle("fas");
 };
+
+// Axios request for clicking upvote button
+
+
+// const upvoteToggle = async (event) => {
+//   let qId = event.target.parentElement.dataset.questionId;
+//   let aId = event.target.parentElement.dataset.answerId;
+//   let subject = event.target.parentElement.dataset.subject;
+//   await axios.post(`/q/${subject}/`);
+// };
 
 $(".upvote").on("click", favToggle);
