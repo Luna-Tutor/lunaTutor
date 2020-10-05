@@ -71,7 +71,7 @@ content %}
           <div class="card-text">
             <!-- FOR VISUAL PURPOSES ONLY -->
             {% for tag in trending %}
-              {% if tag.name == active_route %}
+              {% if tag == active_route %}
                 <a class="d-block active-route" href="/q/tag/{{ tag }}">#{{tag}}</a>
                 {% else %}
                 <a class="d-block" href="/q/tag/{{ tag }}">#{{tag}}</a>
