@@ -2,18 +2,20 @@
 content %}
 
 <div class="container question-board p-3">
-    <h1 class="display-5 font-weight-bold ml-5 mb-0">{{ question.title }}</h1>
-    <div class="ml-5 text-muted mt-0 mb-3"><small>posted in <a class="text-muted"
-                href="/q/{{question.subject.name}}">q/{{question.subject.name}}</a></small></div>
+    <div class="question-board-detail py-4 mx-5 mb-3">
+        <h1 class="display-5 font-weight-bold ml-5 mb-0">{{ question.title }}</h1>
+        <div class="ml-5 text-muted mt-0 mb-3"><small>posted in <a class="text-muted"
+                    href="/q/{{question.subject.name}}">q/{{question.subject.name}}</a></small></div>
 
 
-    <p class="ml-5">{{ question.content }}</p>
+        <p class="ml-5">{{ question.content }}</p>
 
-    {% if not question.answered %}
-    <span class="response-warning badge badge-warning badge-pill ml-5 p-1">No Answers!
-    </span>
-    {% endif %}
+        {% if not question.answered %}
+        <span class="response-warning badge badge-warning badge-pill ml-5 p-1">No Answers!
+        </span>
+        {% endif %}
 
+    </div>
     <div class="row">
         <div class="col mx-5">
             {% if question.answered %}
@@ -50,6 +52,7 @@ content %}
             {% endif %}
             </ul>
         </div>
+
     </div>
     <hr />
     {% if g.user %}

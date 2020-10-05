@@ -104,5 +104,11 @@ ul.ui-autocomplete {
 }
 
 #tutor {
-  color:#8d606d
+  color: #8d606d;
+}
+
+/* answer detail */
+
+.question-board-detail {
+  background: rgb(252, 236, 223);
 }
