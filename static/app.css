@@ -89,5 +89,14 @@ body {
 }
 
 #tutor {
-  color:#8d606d
+  color: #8d606d;
+}
+
+/* answer detail */
+#answer {
+  background: rgb(250, 238, 223);
+}
+
+.question-detail-col {
+  background: red;
 }
