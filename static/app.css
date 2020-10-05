@@ -93,10 +93,7 @@ body {
 }
 
 /* answer detail */
-#answer {
-  background: rgb(250, 238, 223);
-}
 
-.question-detail-col {
-  background: red;
+.question-board-detail {
+  background: rgb(252, 236, 223);
 }

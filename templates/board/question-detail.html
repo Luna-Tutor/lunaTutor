@@ -2,7 +2,7 @@
 content %}
 
 <div class="container question-board p-3">
-    <div class="question-board-detail">
+    <div class="question-board-detail py-4 mx-5 mb-3">
         <h1 class="display-5 font-weight-bold ml-5 mb-0">{{ question.title }}</h1>
         <div class="ml-5 text-muted mt-0 mb-3"><small>posted in <a class="text-muted"
                     href="/q/{{question.subject.name}}">q/{{question.subject.name}}</a></small></div>
@@ -15,45 +15,44 @@ content %}
         </span>
         {% endif %}
 
-        <div class="row">
-            <div class="col mx-5">
-                {% if question.answered %}
-                <p class="lead font-weight-bold">Answers:</p>
-                <ul class="list-group-hover text-left ml-0"></ul>
-                {% for answer in answers %}
-                <li class="list-group-item mb-1">
-                    <div class="d-flex w-100">
-                        <small>
-                            {{ answer.date[:19] }}
-                            {% if answer.top_response %}
-                            <span class="top-answer badge badge-success badge-pill ml-3 p-1">Top Response</span>
-                            {% endif %}
-                        </small>
-                    </div>
-                    <p class="mb-1 lead">{{ answer.content }}</p>
-                    {% if g.user %}
-                    <div>
-                        {% if g.user.has_liked_answer(answer) %}
-                        <a data-question-id="{{question.id}}" data-answer-id="{{answer.id}}"
-                            data-subject="{{question.subject.name}}" href="#"><i
-                                class="upvote fav fas fa-thumbs-up"></i></a>
-                        {% else %}
-                        <a data-question-id="{{question.id}}" data-answer-id="{{answer.id}}"
-                            data-subject="{{question.subject.name}}" href="#"><i
-                                class="upvote far fa-thumbs-up"></i></a>
+    </div>
+    <div class="row">
+        <div class="col mx-5">
+            {% if question.answered %}
+            <p class="lead font-weight-bold">Answers:</p>
+            <ul class="list-group-hover text-left ml-0"></ul>
+            {% for answer in answers %}
+            <li class="list-group-item mb-1">
+                <div class="d-flex w-100">
+                    <small>
+                        {{ answer.date[:19] }}
+                        {% if answer.top_response %}
+                        <span class="top-answer badge badge-success badge-pill ml-3 p-1">Top Response</span>
                         {% endif %}
-                        <small class="text-muted ml-2">(<span
-                                data-answer-id="{{answer.id}}">{{answer.likes.count()}}</span>
-                            users found this answer
-                            helpful)</small>
-                    </div>
+                    </small>
+                </div>
+                <p class="mb-1 lead">{{ answer.content }}</p>
+                {% if g.user %}
+                <div>
+                    {% if g.user.has_liked_answer(answer) %}
+                    <a data-question-id="{{question.id}}" data-answer-id="{{answer.id}}"
+                        data-subject="{{question.subject.name}}" href="#"><i
+                            class="upvote fav fas fa-thumbs-up"></i></a>
+                    {% else %}
+                    <a data-question-id="{{question.id}}" data-answer-id="{{answer.id}}"
+                        data-subject="{{question.subject.name}}" href="#"><i class="upvote far fa-thumbs-up"></i></a>
                     {% endif %}
-                </li>
-                {% endfor %}
+                    <small class="text-muted ml-2">(<span data-answer-id="{{answer.id}}">{{answer.likes.count()}}</span>
+                        users found this answer
+                        helpful)</small>
+                </div>
                 {% endif %}
-                </ul>
-            </div>
+            </li>
+            {% endfor %}
+            {% endif %}
+            </ul>
         </div>
+
     </div>
     <hr />
     {% if g.user %}
