@@ -2,7 +2,10 @@
 content %}
 
 <div class="container question-board p-3">
-    <h1 class="display-5 font-weight-bold ml-5 mb-3">{{ question.title }}</h1>
+    <h1 class="display-5 font-weight-bold ml-5 mb-0">{{ question.title }}</h1>
+    <div class="ml-5 text-muted mt-0 mb-3"><small>posted in <a class="text-muted"
+                href="/q/{{question.subject.name}}">q/{{question.subject.name}}</a></small></div>
+
 
     <p class="ml-5">{{ question.content }}</p>
 
@@ -16,11 +19,11 @@ content %}
             {% if question.answered %}
             <p class="lead font-weight-bold">Answers:</p>
             <ul class="list-group-hover text-left ml-0"></ul>
-            {% for answer in question.answers %}
+            {% for answer in answers %}
             <li class="list-group-item mb-1">
                 <div class="d-flex w-100">
                     <small>
-                        {{ answer.date }}
+                        {{ answer.date[:19] }}
                         {% if answer.top_response %}
                         <span class="top-answer badge badge-success badge-pill ml-3 p-1">Top Response</span>
                         {% endif %}
@@ -29,13 +32,19 @@ content %}
                 <p class="mb-1 lead">{{ answer.content }}</p>
                 {% if g.user %}
                 <div>
-                    <!-- <a data-question-id="{{question.id}}" href="{{ url_for('liking', answerID=answer.id, action='like')}}"><i class="fav fas fa-thumbs-up"></i></a>
-                    <a data-question-id="{{question.id}}" href="{{ url_for('liking', answerID=answer.id, action='unlike')}}"><i class="far fa-thumbs-down"></i></a>                     -->
-                    <small class="text-muted ml-2">(<span data-question-id="{{question.id}}">{{answer.likes.count()}}</span>
+                    {% if g.user.has_liked_answer(answer) %}
+                    <a data-question-id="{{question.id}}" data-answer-id="{{answer.id}}"
+                        data-subject="{{question.subject.name}}" href="#"><i
+                            class="upvote fav fas fa-thumbs-up"></i></a>
+                    {% else %}
+                    <a data-question-id="{{question.id}}" data-answer-id="{{answer.id}}"
+                        data-subject="{{question.subject.name}}" href="#"><i class="upvote far fa-thumbs-up"></i></a>
+                    {% endif %}
+                    <small class="text-muted ml-2">(<span data-answer-id="{{answer.id}}">{{answer.likes.count()}}</span>
                         users found this answer
                         helpful)</small>
-            </div>
-                {% endif %} 
+                </div>
+                {% endif %}
             </li>
             {% endfor %}
             {% endif %}
@@ -58,6 +67,8 @@ content %}
             Submit
         </button>
     </form>
+    {% else %}
+    <p class="text-center">Have an answer? <a href="/signup">Sign Up</a> or <a href="/login">Log in</a> </p>
     {% endif %}
     <div class="mt-3 text-center">
         <a href="/q">(back to home)</a>
