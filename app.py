@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, redirect, session, flash, g
-from models import connect_db, db, User, Question, Answer, Subject
+from flask import Flask, render_template, request, jsonify, redirect, session, flash, g
+from models import connect_db, db, User, Question, Answer, Subject, Tag
 from forms import LoginForm, SignUpForm, AnswerForm, QuestionForm
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
@@ -136,6 +136,19 @@ def show_question_feed():
         active_route="all",
         user=g.user)
 
+@app.route('/search/tags')
+def auto_complete_tags():
+
+    tag = request.args.get("q")
+    query = db.session.query(Question.hashtag).filter(Question.hashtag.ilike("%" + str(tag) + "%"))
+    results = [tn[0] for tn in query.all()]
+    tags = []
+
+    for tag in results:
+        if tag not in tags:
+            tags.append(tag)
+
+    return jsonify(matching_results=tags)
 
 # subject feed route
 @app.route("/q/<subject>", methods=['GET'])
@@ -160,14 +173,13 @@ def post_question():
             return redirect('/login')
         if form.validate_on_submit():
             subject = Subject.query.filter_by(name=form.subject.data).first()
-            list_hashtags = form.hashtag.data.split(' ')
-            
+
             question = Question(
                 subjectID=subject.id,
                 title=form.title.data,
                 content=form.content.data,
                 authorID=g.user.id,
-                hashtag=list_hashtags
+                hashtag=form.hashtag.data
             )
 
             db.session.add(question)
