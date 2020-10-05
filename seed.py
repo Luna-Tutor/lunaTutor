@@ -34,70 +34,30 @@ db.session.add_all([biology, chemistry, physics, astronomy])
 db.session.commit()
 
 
-nathan = User(
-    id=11,
-    username="nathan1",
-    password="aaa111",
-    first_name="nathan",
-    last_name="smith",
-    email="nathan@nathan.com"
-)
+# q1 = Question(
+#     id=11,
+#     title="What is an atom?",
+#     content="Yeah so what is an atom????",
+#     subjectID=2,
+#     authorID=11,
+#     hashtag="atom",
+#     date="Oct3",
+#     answered=False
+# )
 
-sam = User(
-    id=12,
-    username="sam2",
-    password="bbb333",
-    first_name="sam",
-    last_name="samuel",
-    email="sam@sam.com"
-)
+# q2 = Question(
+#     id=12,
+#     title="Why are planets round?",
+#     content="Why are all the planets the same shape?",
+#     subjectID=4,
+#     authorID=12,
+#     hashtag="planets",
+#     date="Oct 2",
+#     answered=True
+# )
 
-terry = User(
-    id=13,
-    username="terry3",
-    password="ccc333",
-    first_name="terry",
-    last_name="terrrrryyy",
-    email="terry@terry.com"
-)
-
-jorge = User(
-    id=14,
-    username="jorge4",
-    password="ddd444",
-    first_name="jorge",
-    last_name="weiss",
-    email="jorge@jorge.com"
-)
-
-db.session.add_all([jorge, nathan, sam, terry])
-db.session.commit()
-
-
-q1 = Question(
-    id=11,
-    title="What is an atom?",
-    content="Yeah so what is an atom????",
-    subjectID=2,
-    authorID=11,
-    hashtag="atom",
-    date="Oct3",
-    answered=False
-)
-
-q2 = Question(
-    id=12,
-    title="Why are planets round?",
-    content="Why are all the planets the same shape?",
-    subjectID=4,
-    authorID=12,
-    hashtag="planets",
-    date="Oct 2",
-    answered=True
-)
-
-db.session.add_all([q1, q2])
-db.session.commit()
+# db.session.add_all([q1, q2])
+# db.session.commit()
 
 
 # a1 = Answer(

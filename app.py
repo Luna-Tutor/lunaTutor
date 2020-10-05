@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, redirect, session, flash, g
-from models import connect_db, db, User, Question, Answer, Subject
+from flask import Flask, render_template, request, redirect, session, flash, g, jsonify
+from models import connect_db, db, User, Question, Answer, Subject, Likes
 from forms import LoginForm, SignUpForm, AnswerForm, QuestionForm
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
@@ -12,8 +12,10 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
     'DATABASE_URL', 'postgres:///luna_db')
 
-connect_db(app)
 
+connect_db(app)
+# db.drop_all()
+db.create_all()
 
 CURR_USER_KEY = 'userin'
 
@@ -103,29 +105,6 @@ def signup():
         return redirect('/q')
     else:
         return render_template('userLoginSignupForm/signup.html', form=form)
-    # if request.method == 'POST':
-    #     if form.validate_on_submit():
-    #         # check for existing user
-    #         existing_user = User.query.filter_by(email=form.email.data)
-
-    #         if existing_user is None:
-    #             user = User.register(
-    #                 username=form.username.data,
-    #                 password=form.password.data,
-    #                 first_name=form.first_name.data,
-    #                 last_name=form.last_name.data,
-    #                 email=form.email.data
-    #             )
-    #         db.session.add(user)
-    #         db.session.commit()
-
-    #         do_login(user)
-    #         return redirect("/q")
-
-    #     # if existing_user if true:
-    #     flash('A user with that email exists.')
-    #     return redirect('/signup')
-    # # GET: render signup form
 
 
 @app.route('/logout')
@@ -211,7 +190,7 @@ def question_detail_page(qid, subject):
             content=form.answer.data,
             authorID=g.user.id,
             questionID=question.id,
-            upvotes=1
+            # upvotes=1
         )
         db.session.add(answer)
         db.session.commit()
@@ -224,8 +203,6 @@ def question_detail_page(qid, subject):
 
     return render_template('board/question-detail.html', question=question, form=form)
 
-# About Page route
-
 
 @app.route('/about', methods=['GET'])
 def about():
@@ -233,8 +210,22 @@ def about():
 
     return render_template('about.html')
 
-# Question and answer routes
-# What do the routes look like if taking an AJAX approach?
-# It may be simpler to just create a route for each subject and question
-# ex) www.lunatutor.com/biology  ->  page showing all biology questions
-# ex) www.lunatotor.com/chemistry/23  ->  page showing question and answers for question No.23
+
+@app.route('/q/<int:answerID>/<action>', methods=['GET', 'POST'])
+def liking(answerID, action):
+    answer = Answer.query.filter_by(id=answerID).first_or_404()
+
+    if action == 'like':
+        g.user.like_answer(answer)
+        db.session.commit()
+
+    if action == 'unlike':
+        g.user.unlike_answer(answer)
+        db.session.commit()
+
+    return redirect(request.referrer)
+    # Question and answer routes
+    # What do the routes look like if taking an AJAX approach?
+    # It may be simpler to just create a route for each subject and question
+    # ex) www.lunatutor.com/biology  ->  page showing all biology questions
+    # ex) www.lunatotor.com/chemistry/23  ->  page showing question and answers for question No.23
