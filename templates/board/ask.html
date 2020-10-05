@@ -9,7 +9,7 @@ content %}
     <form method="POST">
       {{ form.hidden_tag() }} {% for field in form if field.widget.input_type !=
       'hidden' %}
-      <div class="form-group">
+      <div class="form-group auto-complete">
         {{ field.label }} {{ field(class_='form-control') }} {% for error in
         field.errors %}
         <small class="form-text text-danger"> {{error}} </small>
@@ -28,4 +28,5 @@ content %}
 
 {% endblock %} {% block scripts %}
 <script src="/static/js/question.js"></script>
+<script src="/static/js/ask.js"></script>
 {% endblock %}

@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, session, flash, g, jsonify
-from models import connect_db, db, User, Question, Answer, Subject, Likes
+from models import connect_db, db, User, Question, Answer, Subject, Likes, Tag
 from forms import LoginForm, SignUpForm, AnswerForm, QuestionForm, EditUserForm
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
@@ -110,6 +110,7 @@ def signup():
         return render_template('userLoginSignupForm/signup.html', form=form)
 
 
+
 @app.route('/logout')
 def logout():
     """Handle logout of user."""
@@ -140,6 +141,19 @@ def show_question_feed():
         active_route="all",
         user=g.user)
 
+@app.route('/search/tags')
+def auto_complete_tags():
+
+    tag = request.args.get("q")
+    query = db.session.query(Question.hashtag).filter(Question.hashtag.ilike("%" + str(tag) + "%"))
+    results = [tn[0] for tn in query.all()]
+    tags = []
+
+    for tag in results:
+        if tag not in tags:
+            tags.append(tag)
+
+    return jsonify(matching_results=tags)
 
 # subject feed route
 @app.route("/q/<subject>", methods=['GET'])
@@ -148,22 +162,36 @@ def show_subject_questions(subject):
     subject_found = Subject.query.filter_by(name=subject.capitalize()).first()
     subjects = Subject.query.all()
     questions = subject_found.questions
+    trending_hashtags = db.session.execute(
+        'SELECT hashtag, COUNT(hashtag) from questions GROUP BY hashtag ORDER BY COUNT(hashtag) DESC LIMIT 10'
+    )
+    trending = [row[0] for row in trending_hashtags]
 
-    return render_template('board/feed.html', questions=questions, subjects=subjects, active_route=subject)
+    return render_template(
+        'board/feed.html', 
+        questions=questions,
+        subjects=subjects,
+        active_route=subject,
+        trending=trending)
 
 
 @app.route("/q/ask", methods=['GET', 'POST'])
 def post_question():
     """Post a question"""
+    if not g.user:
+        flash("Log in required", "warning")
+        return redirect('/login')
 
     form = QuestionForm()
 
     if request.method == 'POST':
 
         if not g.user:
+            flash("Log in required", "warning")
             return redirect('/login')
         if form.validate_on_submit():
             subject = Subject.query.filter_by(name=form.subject.data).first()
+
             question = Question(
                 subjectID=subject.id,
                 title=form.title.data,
@@ -179,6 +207,22 @@ def post_question():
 
     return render_template('board/ask.html', form=form)
 
+
+@app.route('/q/tag/<tag>')
+def question_by_tag(tag):
+    """ show tag-specific questions """
+
+    questions = Question.query.filter_by(hashtag=tag).all()
+
+    trending_hashtags = db.session.execute(
+        'SELECT hashtag, COUNT(hashtag) from questions GROUP BY hashtag ORDER BY COUNT(hashtag) DESC LIMIT 10'
+    )
+
+    trending = [row[0] for row in trending_hashtags]
+
+    subjects = Subject.query.all()
+
+    return render_template('/board/feed.html', active_route=tag, questions=questions, trending=trending, subjects=subjects)
 
 @app.route('/q/<subject>/<int:qid>', methods=['GET', 'POST'])
 def question_detail_page(qid, subject):
