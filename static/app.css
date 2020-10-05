@@ -6,7 +6,7 @@ body {
 }
 
 .homepage {
-  background-image: url("./images/background.jpg");
+  background-image: url("./images/background2.jpg");
   height: 100vh;
   background-size: cover;
   background-position: center;
@@ -76,4 +76,18 @@ body {
 
 .active-route {
   background-color: rgb(216, 248, 241);
+}
+
+#landing-pg-btn {
+  background-color: #3d6bc7;
+  border-color: #133d91;
+}
+
+#landing-pg-btn:hover {
+  background-color: #133d91;
+  border-color: #133d91;
+}
+
+#tutor {
+  color:#8d606d
 }
