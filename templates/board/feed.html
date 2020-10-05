@@ -15,25 +15,7 @@ content %}
   <div class="row question-list">
     <div class="col ml-0">
       <div class="list-group-hover text-left ml-0">
-        <!-- [example list item] FOR VISUAL PURPOSES ONLY-->
-        <a href="#" class="list-group-item list-group-item-action mb-1">
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1 font-weight-bold">Capacitance</h5>
-            <small>
-              <span class="response-warning badge badge-warning badge-pill ml-3 p-1">No Answers!</span>
-              3 days ago
-            </small>
-          </div>
-
-          <p class="mb-1">This is a static example question. Idealized format</p>
-
-          <small class="text-muted font-italic mr-1">#physics</small>
-          <small class="text-muted font-italic mr-1">#EXAMHELP</small>
-          <small class="text-muted font-italic mr-1">#completelyconfused</small>
-        </a>
-
-        <!-- [end example list item] FOR VISUAL PURPOSES ONLY -->
-
+        
         <!-- [actual code] for list item -->
         {% for q in questions %}
         <a href="/q/{{ q.subject.name }}/{{ q.id }}" class="list-group-item list-group-item-action mb-1">

@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request, jsonify, redirect, session, flash, g
-from models import connect_db, db, User, Question, Answer, Subject, Tag
-from forms import LoginForm, SignUpForm, AnswerForm, QuestionForm
+from flask import Flask, render_template, request, redirect, session, flash, g, jsonify
+from models import connect_db, db, User, Question, Answer, Subject, Likes, Tag
+from forms import LoginForm, SignUpForm, AnswerForm, QuestionForm, EditUserForm
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
 import os
@@ -12,8 +12,10 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
     'DATABASE_URL', 'postgres:///luna_db')
 
-connect_db(app)
 
+connect_db(app)
+# db.drop_all()
+db.create_all()
 
 CURR_USER_KEY = 'userin'
 
@@ -47,6 +49,9 @@ def do_logout():
 @app.route('/', methods=['GET', 'POST'])
 def homepage():
     """Show homepage for lunaTutor"""
+
+    if g.user:
+        redirect('/q')
 
     return render_template('home.html')
 
@@ -212,6 +217,7 @@ def question_detail_page(qid, subject):
     form = AnswerForm()
 
     question = Question.query.get_or_404(qid)
+    answers = db.session.query(Answer).filter_by(questionID=question.id).all()
 
     if form.validate_on_submit():
         # handle answer form
@@ -219,7 +225,7 @@ def question_detail_page(qid, subject):
             content=form.answer.data,
             authorID=g.user.id,
             questionID=question.id,
-            upvotes=1
+            # upvotes=1
         )
         db.session.add(answer)
         db.session.commit()
@@ -230,9 +236,7 @@ def question_detail_page(qid, subject):
 
         return redirect(f'/q/{subject}/{qid}')
 
-    return render_template('board/question-detail.html', question=question, form=form)
-
-# About Page route
+    return render_template('board/question-detail.html', question=question, answers=answers, form=form)
 
 
 @app.route('/about', methods=['GET'])
@@ -241,8 +245,63 @@ def about():
 
     return render_template('about.html')
 
-# Question and answer routes
-# What do the routes look like if taking an AJAX approach?
-# It may be simpler to just create a route for each subject and question
-# ex) www.lunatutor.com/biology  ->  page showing all biology questions
-# ex) www.lunatotor.com/chemistry/23  ->  page showing question and answers for question No.23
+
+@app.route('/users/<int:userID>', methods=['GET', 'POST'])
+def userProfile(userID):
+    """Route so user can edit their account settings"""
+    form = EditUserForm()
+
+    form = EditUserForm(obj=g.user)
+
+    if form.validate_on_submit():
+        if User.authenticate(g.user.username, form.password.data):
+            g.user.username = form.username.data
+            g.user.email = form.email.data
+            g.user.first_name = form.first_name.data
+            g.user.last_name = form.last_name.data
+
+            db.session.commit()
+
+            flash('Successfully updated information.', "success")
+            return redirect(f'/users/{userID}')
+        flash("Re-enter password to complete changes.", 'danger')
+
+    return render_template('/user/profile.html', form=form)
+
+
+@app.route('/users/delete', methods=['POST'])
+def delete_user():
+    """Delete user."""
+
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+    else:
+        do_logout()
+
+        db.session.delete(g.user)
+        db.session.commit()
+
+        flash("Account deleted!", "success")
+        return redirect("/")
+
+
+@app.route('/q/<int:answerID>/<action>', methods=['GET', 'POST'])
+def liking(answerID, action):
+    answer = Answer.query.filter_by(id=answerID).first_or_404()
+
+    if action == 'like':
+        g.user.like_answer(answer)
+        db.session.commit()
+        return jsonify("like")
+
+    if action == 'unlike':
+        g.user.unlike_answer(answer)
+        db.session.commit()
+        return jsonify("unlike")
+
+    # Question and answer routes
+    # What do the routes look like if taking an AJAX approach?
+    # It may be simpler to just create a route for each subject and question
+    # ex) www.lunatutor.com/biology  ->  page showing all biology questions
+    # ex) www.lunatotor.com/chemistry/23  ->  page showing question and answers for question No.23

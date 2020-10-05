@@ -3,18 +3,16 @@ content %}
 
 <!-- Mission Statement -->
 <div class="mission_statement animate-med text-center">
-  <h1 class="display-1 text-white">Science For All</h1>
-
+  <h1 class="mt-5 display-2 text-white">luna<span id="tutor">tutor</span></h1>
+  <p class="text-white">Science questions answered.</p>
 <!-- End  Mission Statement -->
-<div class="m-3"></div>
-{% if g.user %}
-<a class='btn btn-danger text-white btn-lg px-5' href='/q'>Go to Feed</a>
-{% else %}
-<a class='btn btn-danger text-white btn-lg px-5' href='/q'>Browse As Guest</a>
-{% endif %}
-</div>
+
+<a class='btn btn-warning text-white btn-sm px-5' id="landing-pg-btn" href='/q'>Go to Feed</a>
 
 </div>
+
+
+
 {% endblock %} {% block scripts %}
 <script src="../static/js/home.js"></script>
 {% endblock %}
