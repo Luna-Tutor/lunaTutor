@@ -183,6 +183,7 @@ def question_detail_page(qid, subject):
     form = AnswerForm()
 
     question = Question.query.get_or_404(qid)
+    answers = db.session.query(Answer).filter_by(questionID=question.id).all()
 
     if form.validate_on_submit():
         # handle answer form
@@ -201,7 +202,7 @@ def question_detail_page(qid, subject):
 
         return redirect(f'/q/{subject}/{qid}')
 
-    return render_template('board/question-detail.html', question=question, form=form)
+    return render_template('board/question-detail.html', question=question, answers=answers, form=form)
 
 
 @app.route('/about', methods=['GET'])
@@ -218,12 +219,13 @@ def liking(answerID, action):
     if action == 'like':
         g.user.like_answer(answer)
         db.session.commit()
+        return jsonify("like")
 
     if action == 'unlike':
         g.user.unlike_answer(answer)
         db.session.commit()
+        return jsonify("unlike")
 
-    return redirect(request.referrer)
     # Question and answer routes
     # What do the routes look like if taking an AJAX approach?
     # It may be simpler to just create a route for each subject and question
