@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, flash, g, jsonify
 from models import connect_db, db, User, Question, Answer, Subject, Likes
-from forms import LoginForm, SignUpForm, AnswerForm, QuestionForm
+from forms import LoginForm, SignUpForm, AnswerForm, QuestionForm, EditUserForm
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
 import os
@@ -49,6 +49,9 @@ def do_logout():
 @app.route('/', methods=['GET', 'POST'])
 def homepage():
     """Show homepage for lunaTutor"""
+
+    if g.user:
+        redirect('/q')
 
     return render_template('home.html')
 
@@ -215,8 +218,41 @@ def about():
 @app.route('/users/<int:userID>', methods=['GET', 'POST'])
 def userProfile(userID):
     """Route so user can edit their account settings"""
+    form = EditUserForm()
 
-    return render_template('/user/profile.html')
+    form = EditUserForm(obj=g.user)
+
+    if form.validate_on_submit():
+        if User.authenticate(g.user.username, form.password.data):
+            g.user.username = form.username.data
+            g.user.email = form.email.data
+            g.user.first_name = form.first_name.data
+            g.user.last_name = form.last_name.data
+
+            db.session.commit()
+
+            flash('Successfully updated information.', "success")
+            return redirect(f'/users/{userID}')
+        flash("Re-enter password to complete changes.", 'danger')
+
+    return render_template('/user/profile.html', form=form)
+
+
+@app.route('/users/delete', methods=['POST'])
+def delete_user():
+    """Delete user."""
+
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+    else:
+        do_logout()
+
+        db.session.delete(g.user)
+        db.session.commit()
+
+        flash("Account deleted!", "success")
+        return redirect("/")
 
 
 @app.route('/q/<int:answerID>/<action>', methods=['GET', 'POST'])
