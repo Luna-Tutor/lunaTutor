@@ -11,6 +11,16 @@ answer questions relating to science.
 
 ![Picture1](static/images/desktopview1.png) ![Picture2](static/images/desktopview2.png)
 
+## NASA Datasets Used
+
+- We used NASA's
+  [Learning, Racism & Inequality](https://www.nasa.gov/centers/hq/eodm/documents_resources/resources_for_learning_and_talking_about_racism_and_inequality)
+  resources to continue learning about systemic issues and how different people experience inequality. This helped us to identify an issue happening
+  now during the pandemic where students of different races and socioeconomic backgrounds are expected to accomplish the same work as other students
+  while not having the same access to resources. Thus, leading us in the first step of Unity. We implemented the
+  [NASA Unity Campagin's](https://www.nasa.gov/offices/odeo/nasaunity) mission statement of "Mission and Team above Self" to make an attempt at
+  solving this issue.
+
 ## User Flow
 
 - Users can view the feed where questions are stored from other users.

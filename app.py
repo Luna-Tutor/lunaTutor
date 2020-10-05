@@ -110,7 +110,6 @@ def signup():
         return render_template('userLoginSignupForm/signup.html', form=form)
 
 
-
 @app.route('/logout')
 def logout():
     """Handle logout of user."""
@@ -141,11 +140,13 @@ def show_question_feed():
         active_route="all",
         user=g.user)
 
+
 @app.route('/search/tags')
 def auto_complete_tags():
 
     tag = request.args.get("q")
-    query = db.session.query(Question.hashtag).filter(Question.hashtag.ilike("%" + str(tag) + "%"))
+    query = db.session.query(Question.hashtag).filter(
+        Question.hashtag.ilike("%" + str(tag) + "%"))
     results = [tn[0] for tn in query.all()]
     tags = []
 
@@ -168,7 +169,7 @@ def show_subject_questions(subject):
     trending = [row[0] for row in trending_hashtags]
 
     return render_template(
-        'board/feed.html', 
+        'board/feed.html',
         questions=questions,
         subjects=subjects,
         active_route=subject,
@@ -223,6 +224,7 @@ def question_by_tag(tag):
     subjects = Subject.query.all()
 
     return render_template('/board/feed.html', active_route=tag, questions=questions, trending=trending, subjects=subjects)
+
 
 @app.route('/q/<subject>/<int:qid>', methods=['GET', 'POST'])
 def question_detail_page(qid, subject):
