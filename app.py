@@ -211,6 +211,13 @@ def about():
     return render_template('about.html')
 
 
+@app.route('/users/<int:userID>', methods=['GET', 'POST'])
+def userProfile(userID):
+    """Route so user can edit their account settings"""
+
+    return render_template('/user/profile.html')
+
+
 @app.route('/q/<int:answerID>/<action>', methods=['GET', 'POST'])
 def liking(answerID, action):
     answer = Answer.query.filter_by(id=answerID).first_or_404()
