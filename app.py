@@ -51,7 +51,7 @@ def homepage():
     """Show homepage for lunaTutor"""
 
     if g.user:
-        redirect('/q')
+        return redirect('/q')
 
     return render_template('home.html')
 
