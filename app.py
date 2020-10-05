@@ -155,12 +155,16 @@ def show_subject_questions(subject):
 @app.route("/q/ask", methods=['GET', 'POST'])
 def post_question():
     """Post a question"""
+    if not g.user:
+        flash("Log in required", "warning")
+        return redirect('/login')
 
     form = QuestionForm()
 
     if request.method == 'POST':
 
         if not g.user:
+            flash("Log in required", "warning")
             return redirect('/login')
         if form.validate_on_submit():
             subject = Subject.query.filter_by(name=form.subject.data).first()
