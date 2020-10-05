@@ -162,8 +162,17 @@ def show_subject_questions(subject):
     subject_found = Subject.query.filter_by(name=subject.capitalize()).first()
     subjects = Subject.query.all()
     questions = subject_found.questions
+    trending_hashtags = db.session.execute(
+        'SELECT hashtag, COUNT(hashtag) from questions GROUP BY hashtag ORDER BY COUNT(hashtag) DESC LIMIT 10'
+    )
+    trending = [row[0] for row in trending_hashtags]
 
-    return render_template('board/feed.html', questions=questions, subjects=subjects, active_route=subject)
+    return render_template(
+        'board/feed.html', 
+        questions=questions,
+        subjects=subjects,
+        active_route=subject,
+        trending=trending)
 
 
 @app.route("/q/ask", methods=['GET', 'POST'])
